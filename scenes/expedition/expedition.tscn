@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bxrecyxxf3k41" path="res://ui/NavPanel/nav_panel.tscn" id="1_sxp1i"]
 [ext_resource type="Script" uid="uid://84rutin1phm1" path="res://scenes/expedition/ExpeditionManager.gd" id="1_x5hyh"]
 
-[node name="Expedition" type="Node2D"]
+[node name="Expedition" type="Node2D" unique_id=2028591657]
 script = ExtResource("1_x5hyh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1392909479]
 
-[node name="NavPanel" parent="CanvasLayer" instance=ExtResource("1_sxp1i")]
+[node name="NavPanel" parent="CanvasLayer" unique_id=735052115 instance=ExtResource("1_sxp1i")]
 offset_top = -48.0

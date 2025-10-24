@@ -12,8 +12,6 @@ var active_pets: Array = []
 
 
 func _ready() -> void:
-	print("✅ ExpeditionManager ready! Spawning pets...")
-	
 	# Example: spawn several cows for testing
 	for i in range(5):
 		var pos := Vector2(randf_range(-100, 100), randf_range(-100, 100))
@@ -27,6 +25,5 @@ func spawn_pet(pet_name: String, spawn_pos: Vector2) -> void:
 		pet_instance.global_position = spawn_pos
 		add_child(pet_instance)
 		active_pets.append(pet_instance)
-		print("🐾 Spawned pet:", pet_name, "at", spawn_pos)
 	else:
 		push_warning("Pet not found in pets list: " + pet_name)

@@ -1,8 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://corsjmf04ogm8"]
+[gd_scene load_steps=17 format=3 uid="uid://corsjmf04ogm8"]
 
 [ext_resource type="Script" uid="uid://blphy222fteed" path="res://entities/Entity.gd" id="1_nwtje"]
 [ext_resource type="Texture2D" uid="uid://deuhjc6pgn2xy" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Cow/Cow.png" id="1_sorc0"]
+[ext_resource type="Script" uid="uid://cumsts0vkmitf" path="res://entities/EntityData.gd" id="2_nkkuf"]
 [ext_resource type="PackedScene" uid="uid://5nn0r6ydpjy1" path="res://components/SelectComponent/select_component.tscn" id="4_nkkuf"]
+
+[sub_resource type="Resource" id="Resource_bvarj"]
+script = ExtResource("2_nkkuf")
+entity_name = "Cow"
+metadata/_custom_type_script = "uid://cumsts0vkmitf"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nwtje"]
 atlas = ExtResource("1_sorc0")
@@ -87,19 +93,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Cow" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "move_timer")]
+[node name="Cow" type="CharacterBody2D" unique_id=173898849 node_paths=PackedStringArray("sprite", "move_timer")]
 script = ExtResource("1_nwtje")
+data = SubResource("Resource_bvarj")
 sprite = NodePath("AnimatedSprite2D")
 move_timer = NodePath("MoveTimer")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1157016562]
 sprite_frames = SubResource("SpriteFrames_cytg1")
 animation = &"move"
 autoplay = "idle"
 frame_progress = 0.4428975
 
-[node name="SelectComponent" parent="." instance=ExtResource("4_nkkuf")]
+[node name="SelectComponent" parent="." unique_id=547176732 instance=ExtResource("4_nkkuf")]
 
-[node name="MoveTimer" type="Timer" parent="."]
+[node name="MoveTimer" type="Timer" parent="." unique_id=216267237]
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

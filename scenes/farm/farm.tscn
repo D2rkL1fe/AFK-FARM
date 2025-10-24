@@ -1,24 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbvqcdva877u4"]
+[gd_scene load_steps=6 format=3 uid="uid://dbvqcdva877u4"]
 
 [ext_resource type="Script" uid="uid://da0i8yt0rvby4" path="res://scenes/farm/farm.gd" id="1_a4t06"]
 [ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="2_fev0l"]
 [ext_resource type="Script" uid="uid://d0qnbgqwngesx" path="res://scenes/farm/CameraController.gd" id="2_fhtoc"]
 [ext_resource type="PackedScene" uid="uid://bxrecyxxf3k41" path="res://ui/NavPanel/nav_panel.tscn" id="2_wgrn4"]
 [ext_resource type="Script" uid="uid://dfiv6ym8l13ln" path="res://scenes/farm/farm_ui.gd" id="3_36fi7"]
-[ext_resource type="PackedScene" uid="uid://corsjmf04ogm8" path="res://entities/cow/cow.tscn" id="4_xp5e4"]
 
-[node name="Farm" type="Node2D" node_paths=PackedStringArray("spawn")]
+[node name="Farm" type="Node2D" unique_id=811121035 node_paths=PackedStringArray("spawn")]
 script = ExtResource("1_a4t06")
 spawn = NodePath("Spawn")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1309557454]
 script = ExtResource("2_fhtoc")
 
-[node name="Spawn" type="Node2D" parent="."]
+[node name="Spawn" type="Node2D" parent="." unique_id=157401463]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1523422645]
 
-[node name="FarmUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info")]
+[node name="FarmUI" type="Control" parent="CanvasLayer" unique_id=1698768557 node_paths=PackedStringArray("camera", "info")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +30,7 @@ script = ExtResource("3_36fi7")
 camera = NodePath("../../Camera2D")
 info = NodePath("Info")
 
-[node name="Footer" type="PanelContainer" parent="CanvasLayer/FarmUI"]
+[node name="Footer" type="PanelContainer" parent="CanvasLayer/FarmUI" unique_id=528839219]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 1
 anchors_preset = 10
@@ -39,30 +38,30 @@ anchor_right = 1.0
 offset_bottom = 46.0
 grow_horizontal = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/FarmUI/Footer"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/FarmUI/Footer" unique_id=131080737]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/FarmUI/Footer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/FarmUI/Footer/MarginContainer" unique_id=2050831288]
 layout_mode = 2
 
-[node name="PetLabel" type="Label" parent="CanvasLayer/FarmUI/Footer/MarginContainer/HBoxContainer"]
+[node name="PetLabel" type="Label" parent="CanvasLayer/FarmUI/Footer/MarginContainer/HBoxContainer" unique_id=28401629]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0/15 pets"
 
-[node name="Title" type="Label" parent="CanvasLayer/FarmUI/Footer/MarginContainer/HBoxContainer"]
+[node name="Title" type="Label" parent="CanvasLayer/FarmUI/Footer/MarginContainer/HBoxContainer" unique_id=1624002856]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 24
 text = "FARM"
 horizontal_alignment = 1
 
-[node name="Settings" type="Button" parent="CanvasLayer/FarmUI/Footer/MarginContainer/HBoxContainer"]
+[node name="Settings" type="Button" parent="CanvasLayer/FarmUI/Footer/MarginContainer/HBoxContainer" unique_id=1359189795]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Settings"
 
-[node name="Info" type="PanelContainer" parent="CanvasLayer/FarmUI"]
+[node name="Info" type="PanelContainer" parent="CanvasLayer/FarmUI" unique_id=293012914]
 visible = false
 layout_mode = 1
 anchors_preset = 6
@@ -76,49 +75,46 @@ offset_bottom = 20.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/FarmUI/Info"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/FarmUI/Info" unique_id=1000492891]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/FarmUI/Info/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/FarmUI/Info/MarginContainer" unique_id=1722967116]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer" unique_id=647994942]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "STATS"
 horizontal_alignment = 1
 
-[node name="Level" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
+[node name="Level" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer" unique_id=377560340]
 layout_mode = 2
 text = "1 lvl"
 horizontal_alignment = 1
 
-[node name="Experience" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
+[node name="Experience" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer" unique_id=1832250226]
 layout_mode = 2
 text = "Experience 0"
 horizontal_alignment = 1
 
-[node name="Hunger" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
+[node name="Hunger" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer" unique_id=744944952]
 layout_mode = 2
 text = "HUNGER 100/100"
 horizontal_alignment = 1
 
-[node name="Energy" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
+[node name="Energy" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer" unique_id=1466095929]
 layout_mode = 2
 text = "Energy 100/100"
 horizontal_alignment = 1
 
-[node name="NavPanel" parent="CanvasLayer/FarmUI" instance=ExtResource("2_wgrn4")]
+[node name="ExitButton" type="Button" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer" unique_id=1935753695]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Go back"
+
+[node name="NavPanel" parent="CanvasLayer/FarmUI" unique_id=28624528 instance=ExtResource("2_wgrn4")]
 layout_mode = 1
 offset_top = -48.0
 
-[node name="ExitButton" type="Button" parent="CanvasLayer/FarmUI"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Go back"
-
-[node name="Cow" parent="." instance=ExtResource("4_xp5e4")]
-position = Vector2(-21, 3)
-
-[connection signal="pressed" from="CanvasLayer/FarmUI/ExitButton" to="CanvasLayer/FarmUI" method="reset_camera_view"]
+[connection signal="pressed" from="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer/ExitButton" to="CanvasLayer/FarmUI" method="reset_camera_view"]

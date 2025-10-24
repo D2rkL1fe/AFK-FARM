@@ -1,0 +1,98 @@
+Priority:
+	- place with all your pets ( e.g. farm )
+	- additional tab with land to explore/to tame creatures
+	- basic working UI ( everything in it )
+	- saving and AFK systems
+	- SFX and Music
+
+Project Structure:
+	1. Intro
+		- splash/loading screen
+	2. Main
+		- loads straigth into farm with all your pets
+		- pets are interactable
+		- you can feed or train them
+	2.1 Tutorial
+		- if playing for the first time - loads tutorial
+	3. Land expeditions
+		- you can choose random land tile to explore
+		- to explore you need to assign one of your pets there
+		- it will take some time ( 1 minute, 10 minutes, 1 hour etc. ) to reveal
+		- expeditions work offline too ( AFK )
+		- there you can find food or creatures
+	4. Taming creatures
+		- after finding the creature on the land you can literally talk to it
+		- your goal is to convince it to join your 'army'
+	5. Pet care
+		- look up for your pet
+		- pet it
+		- feed it
+		- train it ( AFK )
+		- let it sleep ( AFK )
+
+Limitations:
+	1. Pets are the main cast
+	2. AFK systems ( at least 3 )
+	3. Use Player2 API
+	
+	PS: I can use any free asset to work as efficiently as possible
+
+Main Idea:
+	- Pets have AI in them and you need to tame them via negotiation
+	- they may have different personalities and interests
+	- so in other for them to join you, you have to convince them to
+
+Mechanics:
+	Exploring:
+		- use your existing pets to research/explore new land
+		- 1 pet at a time, uses it's energy
+		- max 3 'expeditions' at once
+	
+	Taming:
+		- you explore land where you can find animals/creatures
+		- they have some AI in them and you need to tame them
+		- ( basically negotiation )
+		- you have a few attempts before it runs away
+	
+	Pet:
+		- you can feed it
+		- you can pet it
+		- you can put it to sleep
+		- you can train it
+	
+	AFK:
+		- exploring can be done offline
+		- pet training/sleeping can be done offline
+
+Content:
+	- tutorial
+	- pet taming
+	- pet care
+	- land researching
+	- a few land types
+	- and a few pets
+
+Pets:
+	- just basic pets, only a few for now ( not to waste much time on )
+	- it could be normal irl animals
+	- or blobs kind of shit
+	- keep it simple
+Pet Stuff:
+	- level
+	- stats ( bond, max energy, speed of research )
+	- hunger
+	- energy ( needs to sleep )
+	- love
+
+UI:
+	- Clash/Rush Royale like
+	1. Farm Tab:
+		- all your pets appear here
+		- there you can click on them
+		- clicking reveals options: pet, feed, train, sleep
+	2. Land Exploration Tab:
+		- many unexplored cloudy/hidden tiles
+		- tap on them to get popup menu where:
+			- you can assign any of your pets to explore it
+			- and how much time it will take
+		- revealed tiles that are empty or contain food/creatures

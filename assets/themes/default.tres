@@ -1,0 +1,11 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dvdhemk8ssjm4"]
+
+[ext_resource type="FontFile" uid="uid://ci8wu5kf38rki" path="res://assets/fonts/Fonts/Kenney Mini.ttf" id="1_x0tin"]
+
+[resource]
+default_font = ExtResource("1_x0tin")
+default_font_size = 8
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8

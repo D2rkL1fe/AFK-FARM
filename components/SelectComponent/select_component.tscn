@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://5nn0r6ydpjy1"]
+
+[ext_resource type="Script" uid="uid://clxeh6m7x4u58" path="res://components/SelectComponent/select_component.gd" id="1_6dowa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a4wp5"]
+radius = 12.0
+
+[node name="SelectComponent" type="Area2D" unique_id=68593449]
+script = ExtResource("1_6dowa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1953983809]
+shape = SubResource("CircleShape2D_a4wp5")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://dge6odpwkq52v"]
+
+[ext_resource type="Script" uid="uid://c8aj8mb6lg4ws" path="res://globals/Transition/transition.gd" id="1_jtr1y"]
+[ext_resource type="Shader" uid="uid://44lfvofwfhj8" path="res://assets/shaders/diamond_transition.gdshader" id="1_jxo47"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oyfry"]
+shader = ExtResource("1_jxo47")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 25.0
+
+[sub_resource type="Animation" id="Animation_51ad7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jtr1y"]
+resource_name = "transition"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(0.5, -2),
+"update": 0,
+"values": [0.0, 0.750000035625]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_obuf0"]
+_data = {
+&"RESET": SubResource("Animation_51ad7"),
+&"transition": SubResource("Animation_jtr1y")
+}
+
+[node name="Transition" type="CanvasLayer" unique_id=2028031790 node_paths=PackedStringArray("animator")]
+script = ExtResource("1_jtr1y")
+animator = NodePath("AnimationPlayer")
+
+[node name="Control" type="Control" parent="." unique_id=254614038]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1589361433]
+material = SubResource("ShaderMaterial_oyfry")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1599696530]
+libraries = {
+&"": SubResource("AnimationLibrary_obuf0")
+}

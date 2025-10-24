@@ -1,0 +1,112 @@
+[gd_scene load_steps=17 format=3 uid="uid://corsjmf04ogm8"]
+
+[ext_resource type="Script" uid="uid://blphy222fteed" path="res://entities/Entity.gd" id="1_nwtje"]
+[ext_resource type="Texture2D" uid="uid://deuhjc6pgn2xy" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Cow/Cow.png" id="1_sorc0"]
+[ext_resource type="Script" uid="uid://cumsts0vkmitf" path="res://entities/EntityData.gd" id="2_p8of2"]
+[ext_resource type="PackedScene" uid="uid://5nn0r6ydpjy1" path="res://components/SelectComponent/select_component.tscn" id="4_nkkuf"]
+
+[sub_resource type="Resource" id="Resource_nkkuf"]
+script = ExtResource("2_p8of2")
+entity_name = "Cow"
+metadata/_custom_type_script = "uid://cumsts0vkmitf"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwtje"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p8of2"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkkuf"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bvarj"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sorc0"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cytg1"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6b7b"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_le4ru"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(96, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcsve"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(128, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvdfs"]
+atlas = ExtResource("1_sorc0")
+region = Rect2(160, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cytg1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nwtje")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p8of2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nkkuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bvarj")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sorc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cytg1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6b7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_le4ru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcsve")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvdfs")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}]
+
+[node name="Cow" type="CharacterBody2D" unique_id=260961406 node_paths=PackedStringArray("sprite", "move_timer")]
+script = ExtResource("1_nwtje")
+data = SubResource("Resource_nkkuf")
+sprite = NodePath("AnimatedSprite2D")
+move_timer = NodePath("MoveTimer")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1434931498]
+sprite_frames = SubResource("SpriteFrames_cytg1")
+animation = &"move"
+autoplay = "idle"
+frame_progress = 0.4428975
+
+[node name="SelectComponent" parent="." unique_id=68593449 instance=ExtResource("4_nkkuf")]
+
+[node name="MoveTimer" type="Timer" parent="." unique_id=277764111]
+
+[connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

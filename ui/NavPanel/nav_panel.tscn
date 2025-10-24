@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxrecyxxf3k41"]
+
+[ext_resource type="Script" uid="uid://ck5j0t6lner5u" path="res://ui/NavPanel/nav_panel.gd" id="1_1ftug"]
+
+[node name="NavPanel" type="PanelContainer" unique_id=225582837]
+custom_minimum_size = Vector2(0, 48)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_1ftug")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1076610948]
+layout_mode = 2
+alignment = 1
+
+[node name="Farm" type="Button" parent="HBoxContainer" unique_id=4024781]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=155453194]
+layout_mode = 2
+
+[node name="Expedition" type="Button" parent="HBoxContainer" unique_id=1813886064]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[connection signal="pressed" from="HBoxContainer/Farm" to="." method="_on_farm_pressed"]
+[connection signal="pressed" from="HBoxContainer/Expedition" to="." method="_on_expedition_pressed"]

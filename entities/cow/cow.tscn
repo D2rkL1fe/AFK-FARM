@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://corsjmf04ogm8"]
+[gd_scene load_steps=18 format=3 uid="uid://corsjmf04ogm8"]
 
 [ext_resource type="Script" uid="uid://blphy222fteed" path="res://entities/Entity.gd" id="1_nwtje"]
 [ext_resource type="Texture2D" uid="uid://deuhjc6pgn2xy" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Cow/Cow.png" id="1_sorc0"]
@@ -93,20 +93,29 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Cow" type="CharacterBody2D" unique_id=173898849 node_paths=PackedStringArray("sprite", "move_timer")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nkkuf"]
+radius = 6.9999075
+height = 21.999708
+
+[node name="Cow" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "move_timer", "collision_area")]
 script = ExtResource("1_nwtje")
 data = SubResource("Resource_bvarj")
 sprite = NodePath("AnimatedSprite2D")
 move_timer = NodePath("MoveTimer")
+collision_area = NodePath("")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1157016562]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cytg1")
 animation = &"move"
 autoplay = "idle"
 frame_progress = 0.4428975
 
-[node name="SelectComponent" parent="." unique_id=547176732 instance=ExtResource("4_nkkuf")]
+[node name="SelectComponent" parent="." instance=ExtResource("4_nkkuf")]
 
-[node name="MoveTimer" type="Timer" parent="." unique_id=216267237]
+[node name="MoveTimer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5657682
+shape = SubResource("CapsuleShape2D_nkkuf")
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

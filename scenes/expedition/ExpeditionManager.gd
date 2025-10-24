@@ -1,29 +1,28 @@
 extends Node2D
 class_name ExpeditionManager
 
-# Load all pets (more can be added later)
+signal pet_interacted(pet_instance: Entity)
+
 var pets: Dictionary = {
-	"Cow": preload("uid://corsjmf04ogm8"), # Replace with your actual Cow scene UID
-	# "Slime": preload("uid://d2031h3r0fx"), # Uncomment when you add Slime
+	"Cow": preload("uid://corsjmf04ogm8"),
 }
 
-# Holds currently spawned pet instances
 var active_pets: Array = []
 
-
 func _ready() -> void:
-	# Example: spawn several cows for testing
 	for i in range(5):
-		var pos := Vector2(randf_range(-100, 100), randf_range(-100, 100))
-		spawn_pet("Cow", pos)
-
+		spawn_pet("Cow", Vector2(randf_range(-10, 10), randf_range(-10, 10)))
 
 func spawn_pet(pet_name: String, spawn_pos: Vector2) -> void:
 	if pets.has(pet_name):
-		var pet_scene: PackedScene = pets[pet_name]
-		var pet_instance: Node2D = pet_scene.instantiate()
+		var pet_instance: Entity = pets[pet_name].instantiate()
 		pet_instance.global_position = spawn_pos
 		add_child(pet_instance)
 		active_pets.append(pet_instance)
+		pet_instance.interacted.connect(_on_pet_interacted)
 	else:
 		push_warning("Pet not found in pets list: " + pet_name)
+
+func _on_pet_interacted(pet_instance: Entity) -> void:
+	print("Pet clicked: " + pet_instance.data.entity_name)
+	pet_interacted.emit(pet_instance)

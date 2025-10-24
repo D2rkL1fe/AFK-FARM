@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://ujb8vuc4ixe6"]
+[gd_scene load_steps=3 format=3 uid="uid://ujb8vuc4ixe6"]
 
 [ext_resource type="PackedScene" uid="uid://bxrecyxxf3k41" path="res://ui/NavPanel/nav_panel.tscn" id="1_sxp1i"]
+[ext_resource type="Script" uid="uid://84rutin1phm1" path="res://scenes/expedition/ExpeditionManager.gd" id="1_x5hyh"]
 
-[node name="Expedition" type="Node2D" unique_id=1143679310]
+[node name="Expedition" type="Node2D"]
+script = ExtResource("1_x5hyh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1719712598]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="NavPanel" parent="CanvasLayer" unique_id=225582837 instance=ExtResource("1_sxp1i")]
+[node name="NavPanel" parent="CanvasLayer" instance=ExtResource("1_sxp1i")]
 offset_top = -48.0

@@ -25,7 +25,7 @@ _data = {
 &"splash": SubResource("Animation_y4437")
 }
 
-[node name="Splash" type="Control" unique_id=409055341]
+[node name="Splash" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,7 +35,7 @@ grow_vertical = 2
 theme = ExtResource("1_i52gs")
 script = ExtResource("2_cwtag")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1713413770]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.040541537, 4.8251077e-05, 0.11390629, 1)
 
-[node name="Title" type="Label" parent="." unique_id=2043225508]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -58,12 +58,12 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 32
-text = "AFK FARM"
+text = "PET FARM"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=530535731]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_wwhxh")
 }
-autoplay = &"splash"
+autoplay = "splash"

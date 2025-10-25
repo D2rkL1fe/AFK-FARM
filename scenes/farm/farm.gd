@@ -1,5 +1,4 @@
 extends Node2D
-class_name Farm
 
 @export var spawn : Node2D
 @export var training_button: Button
@@ -7,6 +6,9 @@ class_name Farm
 var is_training: bool = false
 var last_mouse_pos: Vector2 = Vector2.ZERO
 var total_mouse_distance: float = 0.0
+var training_start_time: float = 0.0
+
+const XP_DIVISOR = 60.0
 
 func _ready() -> void:
 	spawn_pets()
@@ -19,22 +21,30 @@ func spawn_pets():
 		
 		spawn.add_child(instance)
 
+func _physics_process(_delta: float) -> void:
+	if is_training:
+		for child in spawn.get_children():
+			if child is Entity:
+				if child.current_state == Entity.State.FOLLOWING_MOUSE:
+					if child.current_energy <= 5:
+						child.stop_following()
+					
 func _input(event: InputEvent) -> void:
 	if is_training and event is InputEventMouseMotion:
 		var current_mouse_pos = get_global_mouse_position()
 		var distance = last_mouse_pos.distance_to(current_mouse_pos)
 		total_mouse_distance += distance
-		last_mouse_pos = current_mouse_pos
-	
+		
 	if is_training and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		target_pets(get_global_mouse_position())
 
 func _on_training_toggled(_toggled_on: bool) -> void:
 	is_training = _toggled_on
 	if is_training:
+		training_start_time = Time.get_ticks_usec() / 1000000.0
 		last_mouse_pos = get_global_mouse_position()
 		total_mouse_distance = 0.0
-		var control_node = get_node("CameraControl")
+		var control_node = get_node("CanvasLayer/CameraControl") 
 		if control_node and control_node.target:
 			control_node.reset_camera_view()
 	else:
@@ -43,16 +53,38 @@ func _on_training_toggled(_toggled_on: bool) -> void:
 func target_pets(pos: Vector2) -> void:
 	for child in spawn.get_children():
 		if child is Entity:
-			child.start_following_mouse(pos)
+			if child.current_energy > 5:
+				child.start_following_mouse(pos)
 
 func stop_training() -> void:
-	var training_time_seconds = 1
-	var _training_speed = total_mouse_distance / max(1.0, training_time_seconds)
+	var training_time_seconds = Time.get_ticks_usec() / 1000000.0 - training_start_time
+	training_time_seconds = max(1.0, training_time_seconds) 
 	
-	var training_gain = int(total_mouse_distance / 100.0)
-	print("Training complete! Distance: ", total_mouse_distance, " Gain: ", training_gain)
+	var _training_speed = total_mouse_distance / training_time_seconds
+	
+	var base_gain = int(total_mouse_distance / XP_DIVISOR)
+	
+	print("Training complete! Distance: ", total_mouse_distance, " Gain: ", base_gain)
 	
 	total_mouse_distance = 0.0
+	
+	var control_node = get_node("CanvasLayer/CameraControl")
+	var focused_pet: Entity = null
+	
 	for child in spawn.get_children():
 		if child is Entity:
+			var xp_gained = max(1, base_gain)
+			# MODIFIED LINE: Ensure minimum gain is 1, even after the multiplier.
+			var final_xp_gain = max(1, int(xp_gained * child.exp_gain_multiplier)) 
+			child.current_exp += final_xp_gain
+			
+			if child.current_exp >= child.exp_to_next_level:
+				child.level_up()
+				
 			child.stop_following()
+			
+			if control_node and control_node.target == child:
+				focused_pet = child
+
+	if focused_pet and control_node:
+		control_node.refresh_pet_info(focused_pet)

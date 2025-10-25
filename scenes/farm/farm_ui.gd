@@ -13,14 +13,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("cancel"):
 		target = null
 		info.visible = false
-	
-	# animations
-	if target:
-		camera.zoom = lerp(camera.zoom, Vector2(2.0, 2.0), 8.0 * delta)
-		camera.global_position = lerp(camera.global_position, target.global_position + Vector2(18.0, 0), 8.0 * delta)
-	else:
-		camera.zoom = lerp(camera.zoom, Vector2.ONE, 8.0 * delta)
-		camera.global_position = lerp(camera.global_position, Vector2.ZERO, 8.0 * delta)
 
 func reset_camera_view() -> void:
 	target = null

@@ -46,7 +46,7 @@ func target_pets(pos: Vector2) -> void:
 			child.start_following_mouse(pos)
 
 func stop_training() -> void:
-	var training_time_seconds = get_tree().get_process_time()
+	var training_time_seconds = 1
 	var _training_speed = total_mouse_distance / max(1.0, training_time_seconds)
 	
 	var training_gain = int(total_mouse_distance / 100.0)

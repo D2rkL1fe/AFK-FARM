@@ -8,6 +8,28 @@ signal interacted(pet_instance: Entity)
 @export var move_timer : Timer
 @export var collision_area: Area2D
 
+const PASSIVE_HUNGER_LOSS_PER_SEC: float = 0.05
+const MOVEMENT_ENERGY_COST_PER_SEC: float = 3.0
+const MOVEMENT_HUNGER_COST_PER_SEC: float = 0.1
+const MOVEMENT_THRESHOLD: float = 5.0
+
+const MAX_LEVEL: int = 100
+const LOW_HUNGER_THRESHOLD: float = 25.0
+const LOW_HUNGER_ENERGY_PENALTY: float = 50.0
+const STAT_PENALTY_THRESHOLD: float = 50.0
+const MOVE_SPEED_BASE: float = 25.0
+const MOUSE_FOLLOW_SPEED_BASE: float = 60.0
+
+var current_exp: int = 0
+var exp_to_next_level: int = 50
+var level: int = 1
+var current_hunger: float = 100.0
+var current_energy: float = 100.0
+
+var move_speed_multiplier: float
+var energy_cost_multiplier: float
+var exp_gain_multiplier: float
+
 enum State { WANDERING, FOLLOWING, IDLE, FOLLOWING_MOUSE }
 var current_state: State = State.WANDERING
 
@@ -15,21 +37,62 @@ var target_pos : Vector2
 var leader: CharacterBody2D = null
 var follow_offset: Vector2 = Vector2.ZERO
 
-const MOVE_SPEED: float = 25.0
-const MOUSE_FOLLOW_SPEED: float = 120.0
 const LERP_SMOOTHNESS: float = 4.0
 const REPULSION_STRENGTH: float = 35.0
 
-func _ready() -> void:
-	move()
+func _init():
+	randomize_stats()
+
+func randomize_stats():
+	move_speed_multiplier = randf_range(0.7, 1.3)
+	energy_cost_multiplier = randf_range(0.7, 1.3)
+	exp_gain_multiplier = randf_range(0.8, 1.5)
+
+func get_max_energy() -> float:
+	if current_hunger <= LOW_HUNGER_THRESHOLD:
+		return 100.0 - LOW_HUNGER_ENERGY_PENALTY
+	return 100.0
+
+func get_current_move_speed() -> float:
+	var hunger_factor = 1.0
+	var energy_factor = 1.0
+	
+	if current_hunger < STAT_PENALTY_THRESHOLD:
+		hunger_factor = current_hunger / STAT_PENALTY_THRESHOLD 
+	
+	if current_energy < STAT_PENALTY_THRESHOLD:
+		energy_factor = current_energy / STAT_PENALTY_THRESHOLD
+		
+	var speed_multiplier = min(hunger_factor, energy_factor) * move_speed_multiplier
+	
+	if current_state == State.FOLLOWING_MOUSE:
+		return MOUSE_FOLLOW_SPEED_BASE * speed_multiplier
+	
+	return MOVE_SPEED_BASE * speed_multiplier
+
+func level_up():
+	while current_exp >= exp_to_next_level and level < MAX_LEVEL:
+		current_exp -= exp_to_next_level
+		level += 1
+		exp_to_next_level = int(exp_to_next_level * 1.2) + 50
+		print("Pet leveled up to ", level, "! Next EXP needed: ", exp_to_next_level)
+	
+	if level >= MAX_LEVEL:
+		current_exp = exp_to_next_level
 
 func _physics_process(delta: float) -> void:
-	var current_move_speed: float = MOVE_SPEED
+	
+	current_hunger -= PASSIVE_HUNGER_LOSS_PER_SEC * delta
+	current_hunger = clampf(current_hunger, 0, 100)
+	
+	var max_energy = get_max_energy()
+	if current_energy > max_energy:
+		current_energy = max_energy
+	
+	var current_move_speed: float = get_current_move_speed()
 	
 	if current_state == State.FOLLOWING:
 		target_pos = leader.global_position + follow_offset
-	elif current_state == State.FOLLOWING_MOUSE:
-		current_move_speed = MOUSE_FOLLOW_SPEED
 	
 	var direction = (target_pos - global_position).normalized()
 	
@@ -48,6 +111,10 @@ func _physics_process(delta: float) -> void:
 		velocity = lerp(velocity, Vector2.ZERO, LERP_SMOOTHNESS * delta)
 	
 	move_and_slide()
+	
+	if current_state == State.FOLLOWING_MOUSE and velocity.length() > MOVEMENT_THRESHOLD:
+		current_energy = clampf(current_energy - MOVEMENT_ENERGY_COST_PER_SEC * energy_cost_multiplier * delta, 0, max_energy)
+		current_hunger = clampf(current_hunger - MOVEMENT_HUNGER_COST_PER_SEC * delta, 0, 100)
 
 func move():
 	current_state = State.WANDERING
@@ -67,6 +134,7 @@ func start_following_mouse(pos: Vector2):
 	target_pos = pos
 
 func stop_following():
+	current_state = State.WANDERING
 	move()
 
 func _on_move_timer_timeout() -> void:

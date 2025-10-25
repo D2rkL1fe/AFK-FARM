@@ -2,18 +2,31 @@ extends Control
 
 @export var camera : Camera2D
 @export var info : Control
+@export var training_button: Button
 
 var target : Node2D
 
 func _ready() -> void:
 	Global.pet_selected.connect(_on_pet_selected)
 
-func _physics_process(delta: float) -> void:
-	# input
+func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("cancel"):
 		target = null
 		info.visible = false
-
+	
+	if target:
+		camera.zoom = lerp(camera.zoom, Vector2(2.0, 2.0), 8.0 * _delta)
+		camera.global_position = lerp(camera.global_position, target.global_position + Vector2(18.0, 0), 8.0 * _delta)
+		if is_instance_valid(training_button):
+			training_button.disabled = true
+			info.visible = true
+	else:
+		camera.zoom = lerp(camera.zoom, Vector2.ONE, 8.0 * _delta)
+		camera.global_position = lerp(camera.global_position, Vector2.ZERO, 8.0 * _delta)
+		if is_instance_valid(training_button):
+			training_button.disabled = false
+			info.visible = false
+			
 func reset_camera_view() -> void:
 	target = null
 	info.visible = false

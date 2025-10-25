@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b83yydp88t3cn"]
+
+[ext_resource type="Texture2D" uid="uid://blw310c05c2co" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Fish.png" id="1_ywhkx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3lrt"]
+atlas = ExtResource("1_ywhkx")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xhvsj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3lrt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Fish" type="AnimatedSprite2D" unique_id=918988648]
+sprite_frames = SubResource("SpriteFrames_xhvsj")

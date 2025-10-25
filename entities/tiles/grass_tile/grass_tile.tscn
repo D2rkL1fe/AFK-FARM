@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0ns8fgqrmfqq"]
+
+[ext_resource type="Texture2D" uid="uid://b21ehijl0yt2u" path="res://assets/tiles/grass_tile.png" id="1_q3c8a"]
+[ext_resource type="Script" uid="uid://bpg5165a40vtg" path="res://entities/tiles/Tile.gd" id="1_u70m1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u70m1"]
+radius = 19.0
+height = 60.0
+
+[node name="GrassTile" type="Area2D" unique_id=564641649]
+script = ExtResource("1_u70m1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1028019605]
+position = Vector2(0, -1)
+texture = ExtResource("1_q3c8a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1859767258]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_u70m1")

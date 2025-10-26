@@ -22,7 +22,7 @@ const LOW_HUNGER_ENERGY_PENALTY: float = 50.0
 const STAT_PENALTY_THRESHOLD: float = 50.0
 const MOVE_SPEED_BASE: float = 25.0
 const MOUSE_FOLLOW_SPEED_BASE: float = 60.0
-const REWARD_COLLECTION_RANGE: float = 20.0
+const REWARD_COLLECTION_RANGE: float = 100.0
 
 const MEMORY_DECAY_TIME: float = 10.0
 const MEMORY_UPDATE_DISTANCE: float = 30.0

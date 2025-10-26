@@ -11,6 +11,7 @@ func spawn_pet(pet_data: EntityData) -> void:
 	
 	if PetLoader.pets.has(pet_name) and PetLoader.pets[pet_name] is PackedScene:
 		var pet_instance = PetLoader.pets[pet_name].instantiate()
+		pet_instance.global_position = Vector2(randf_range(-50, 50), randf_range(-50, 50))
 		pet_spawn_point.add_child(pet_instance)
 		
 		if pet_instance is Entity:

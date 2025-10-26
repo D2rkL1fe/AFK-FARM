@@ -7,6 +7,7 @@
 
 [sub_resource type="Resource" id="Resource_nkkuf"]
 script = ExtResource("2_nkkuf")
+entity_name = "Cow"
 metadata/_custom_type_script = "uid://cumsts0vkmitf"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nwtje"]
@@ -96,25 +97,25 @@ animations = [{
 radius = 6.9999075
 height = 21.999708
 
-[node name="Cow" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "move_timer", "collision_area")]
+[node name="Cow" type="CharacterBody2D" unique_id=2116983176 node_paths=PackedStringArray("sprite", "move_timer", "collision_area")]
 script = ExtResource("1_nwtje")
 data = SubResource("Resource_nkkuf")
 sprite = NodePath("AnimatedSprite2D")
 move_timer = NodePath("MoveTimer")
 collision_area = NodePath("SelectComponent")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=978005873]
 sprite_frames = SubResource("SpriteFrames_cytg1")
 animation = &"move"
 autoplay = "idle"
 frame_progress = 0.4428975
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=560690129]
 rotation = 1.5657682
 shape = SubResource("CapsuleShape2D_nkkuf")
 
-[node name="SelectComponent" parent="." instance=ExtResource("4_nkkuf")]
+[node name="SelectComponent" parent="." unique_id=1199501920 instance=ExtResource("4_nkkuf")]
 
-[node name="MoveTimer" type="Timer" parent="."]
+[node name="MoveTimer" type="Timer" parent="." unique_id=1527803743]
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

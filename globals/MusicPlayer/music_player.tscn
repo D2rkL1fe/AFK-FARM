@@ -3,7 +3,9 @@
 [ext_resource type="Script" uid="uid://crgn0l0umii5h" path="res://globals/MusicPlayer/music_player.gd" id="1_5sar2"]
 
 [node name="MusicPlayer" type="Node" unique_id=421119965 node_paths=PackedStringArray("audio_player")]
+process_mode = 3
 script = ExtResource("1_5sar2")
 audio_player = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=181096969]
+bus = &"Music"

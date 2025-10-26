@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfsp1f245y8pr"]
 
-[ext_resource type="Script" uid="uid://bjuivvl2i55lw" path="res://entities/food/fish/fish.gd" id="1_i53k2"]
+[ext_resource type="Script" uid="uid://dadi3fsy2fvu3" path="res://scenes/farm/potato.gd" id="1_i53k2"]
 [ext_resource type="Texture2D" uid="uid://cdprgddneq15w" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/potato.png" id="2_hapn3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaoys"]
@@ -22,20 +22,20 @@ animations = [{
 radius = 5.997146
 height = 13.993341
 
-[node name="Potato" type="Node2D"]
+[node name="Potato" type="Node2D" unique_id=1609695447]
 rotation = -0.7858375
 script = ExtResource("1_i53k2")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=653461922]
 position = Vector2(-6.3617854, -4.9525423)
 rotation = 0.80156857
 sprite_frames = SubResource("SpriteFrames_crx2n")
 offset = Vector2(8.029345, -9.186296)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=26196574]
 rotation = -0.8158006
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=625007204]
 shape = SubResource("CapsuleShape2D_ywhkx")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

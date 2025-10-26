@@ -1,3 +1,4 @@
+class_name Farm
 extends Node2D
 
 @export var spawn : Node2D
@@ -71,6 +72,8 @@ func _on_food_clicked(food_instance) -> void:
 
 func _on_training_toggled(_toggled_on: bool) -> void:
 	is_training = _toggled_on
+	training_button.button_pressed = _toggled_on
+	
 	if is_training:
 		training_start_time = Time.get_ticks_usec() / 1000000.0
 		last_mouse_pos = get_global_mouse_position()

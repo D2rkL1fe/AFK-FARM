@@ -151,20 +151,18 @@ offset_bottom = 151.0
 toggle_mode = true
 text = "Training"
 
-[node name="CameraControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info", "training_button", "level_label", "experience_label", "hunger_label", "energy_label", "wandering_label")]
+[node name="CameraControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("level_label", "experience_label", "hunger_label", "energy_label", "wandering_label", "nav_panel_ref")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_36fi7")
-camera = NodePath("Camera2D")
-info = NodePath("../FarmUI/Info")
-training_button = NodePath("../FarmUI/Training")
 level_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Level")
 experience_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Experience")
 hunger_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Hunger")
 energy_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Energy")
 wandering_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Wandering")
+nav_panel_ref = NodePath("../FarmUI/NavPanel")
 
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer/CameraControl"]
 

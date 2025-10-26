@@ -5,9 +5,8 @@
 [ext_resource type="Script" uid="uid://cumsts0vkmitf" path="res://entities/EntityData.gd" id="2_nkkuf"]
 [ext_resource type="PackedScene" uid="uid://5nn0r6ydpjy1" path="res://components/SelectComponent/select_component.tscn" id="4_nkkuf"]
 
-[sub_resource type="Resource" id="Resource_bvarj"]
+[sub_resource type="Resource" id="Resource_nkkuf"]
 script = ExtResource("2_nkkuf")
-entity_name = "Cow"
 metadata/_custom_type_script = "uid://cumsts0vkmitf"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nwtje"]
@@ -97,24 +96,25 @@ animations = [{
 radius = 6.9999075
 height = 21.999708
 
-[node name="Cow" type="CharacterBody2D" unique_id=648958116 node_paths=PackedStringArray("sprite", "move_timer")]
+[node name="Cow" type="CharacterBody2D" node_paths=PackedStringArray("sprite", "move_timer", "collision_area")]
 script = ExtResource("1_nwtje")
-data = SubResource("Resource_bvarj")
+data = SubResource("Resource_nkkuf")
 sprite = NodePath("AnimatedSprite2D")
 move_timer = NodePath("MoveTimer")
+collision_area = NodePath("SelectComponent")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=441912704]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cytg1")
 animation = &"move"
 autoplay = "idle"
 frame_progress = 0.4428975
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=150344338]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5657682
 shape = SubResource("CapsuleShape2D_nkkuf")
 
-[node name="SelectComponent" parent="." unique_id=952436700 instance=ExtResource("4_nkkuf")]
+[node name="SelectComponent" parent="." instance=ExtResource("4_nkkuf")]
 
-[node name="MoveTimer" type="Timer" parent="." unique_id=1550873056]
+[node name="MoveTimer" type="Timer" parent="."]
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

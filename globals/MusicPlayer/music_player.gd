@@ -1,7 +1,6 @@
 extends Node
 
 # Music
-const MEME = preload("uid://eiwbv47yxsb0")
 const HARDBASS = preload("uid://cftmrn277g681")
 const LOFI = preload("uid://b63fen0aqvc6p")
 

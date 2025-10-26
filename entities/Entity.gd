@@ -22,7 +22,7 @@ const LOW_HUNGER_ENERGY_PENALTY: float = 50.0
 const STAT_PENALTY_THRESHOLD: float = 50.0
 const MOVE_SPEED_BASE: float = 25.0
 const MOUSE_FOLLOW_SPEED_BASE: float = 60.0
-const REWARD_COLLECTION_RANGE: float = 12.0
+const REWARD_COLLECTION_RANGE: float = 20.0
 
 const MEMORY_DECAY_TIME: float = 10.0
 const MEMORY_UPDATE_DISTANCE: float = 30.0
@@ -110,9 +110,37 @@ func wandering_level_up():
 		wandering_exp_to_next_level = int(wandering_exp_to_next_level * 1.2)
 		wander_search_radius = wander_radius_base + float(wandering_level) * 5.0
 
-func eat_fish(hunger_restore: float, energy_restore: float) -> void:
+func eat_food(hunger_restore: float, energy_restore: float) -> void:
 	current_hunger = clampf(current_hunger + hunger_restore, 0, 100)
 	current_energy = clampf(current_energy + energy_restore, 0, get_max_energy())
+
+func check_for_rewards():
+	var nearest_reward: Node2D = null
+	var nearest_distance: float = 9999.0
+	
+	if current_state != State.WANDERING and current_state != State.IDLE:
+		return
+	
+	if collision_area == null:
+		return
+	
+	var boosted_range: float = 0.0
+	if wandering_level <= 5:
+		boosted_range = 100.0
+	
+	var overlapping_areas = collision_area.get_overlapping_areas()
+	
+	for area in overlapping_areas:
+		if area.get_parent() is Fish or area.get_parent() is Potato:
+			var reward_parent = area.get_parent()
+			var distance = global_position.distance_to(reward_parent.global_position)
+			
+			if distance < nearest_distance and (distance <= wander_search_radius or distance <= boosted_range):
+				nearest_distance = distance
+				nearest_reward = reward_parent
+
+	if is_instance_valid(nearest_reward):
+		start_seeking_reward(nearest_reward)
 
 func _physics_process(delta: float) -> void:
 	
@@ -127,21 +155,21 @@ func _physics_process(delta: float) -> void:
 		current_energy = clampf(current_energy + PASSIVE_ENERGY_REGEN_PER_SEC * delta, 0, max_energy)
 		
 	if current_state == State.WANDERING or current_state == State.IDLE:
-		check_for_rewards()
 		current_wandering_exp += WANDERING_XP_GAIN_PER_SEC * delta
 		wandering_level_up()
 		if global_position.distance_to(last_wandered_pos) >= MEMORY_UPDATE_DISTANCE:
 			last_wandered_pos = global_position
 			last_wandered_time = Time.get_ticks_msec() / 1000.0
+		
+		check_for_rewards()
 	
 	if current_state == State.SEEKING_REWARD:
 		if is_instance_valid(target_reward):
 			target_pos = target_reward.global_position
 			
 			if global_position.distance_to(target_pos) <= REWARD_COLLECTION_RANGE:
-				target_reward._on_interacted(self)
-				target_reward = null
 				move()
+			
 		else:
 			move()
 			
@@ -188,28 +216,6 @@ func _physics_process(delta: float) -> void:
 		current_energy = clampf(current_energy - MOVEMENT_ENERGY_COST_PER_SEC * energy_cost_multiplier * delta, 0, max_energy)
 		current_hunger = clampf(current_hunger - MOVEMENT_HUNGER_COST_PER_SEC * delta, 0, 100)
 
-func check_for_rewards():
-	if current_state != State.WANDERING and current_state != State.IDLE:
-		return
-		
-	if collision_area == null:
-		return
-		
-	var overlapping_areas = collision_area.get_overlapping_areas()
-	
-	var closest_reward: Node2D = null
-	var closest_distance: float = 1000000.0
-	
-	for area in overlapping_areas:
-		if area.get_parent() is Fish:
-			var fish_node = area.get_parent()
-			if fish_node.global_position.distance_to(global_position) < closest_distance:
-				closest_distance = fish_node.global_position.distance_to(global_position)
-				closest_reward = fish_node
-			
-	if is_instance_valid(closest_reward):
-		start_seeking_reward(closest_reward)
-
 func move():
 	current_state = State.WANDERING
 	
@@ -237,6 +243,7 @@ func stop_following():
 func start_seeking_reward(reward: Node2D):
 	current_state = State.SEEKING_REWARD
 	target_reward = reward
+	velocity = Vector2.ZERO
 	move_timer.stop()
 
 func _on_move_timer_timeout() -> void:

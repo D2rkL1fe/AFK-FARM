@@ -8,19 +8,24 @@ var last_mouse_pos: Vector2 = Vector2.ZERO
 var total_mouse_distance: float = 0.0
 var training_start_time: float = 0.0
 
-const XP_DIVISOR = 20.0
-const FISH_HUNGER_VALUE = 40.0
-const FISH_ENERGY_VALUE = 20.0
+const XP_DIVISOR = 10.0
+const WANDERING_XP_BOOST = 5.0
+const FISH_HUNGER_VALUE = 20.0
+const FISH_ENERGY_VALUE = 10.0
+const POTATO_HUNGER_VALUE = 15.0
+const POTATO_ENERGY_VALUE = 5.0
 
 func _ready() -> void:
 	add_to_group("farm_root")
 	spawn_pets()
 
 func spawn_pets():
-	for pet in Stats.pets:
-		var instance = PetLoader.pets[pet.entity_name].instantiate()
-		instance.global_position = Vector2(randf_range(-50, 50), randf_range(-50, 50))
-		spawn.add_child(instance)
+	for pet_data in Stats.pets:
+		var pet_name = pet_data.entity_name
+		if PetLoader.pets.has(pet_name) and PetLoader.pets[pet_name] is PackedScene:
+			var instance = PetLoader.pets[pet_name].instantiate()
+			instance.global_position = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+			spawn.add_child(instance)
 
 func _physics_process(_delta: float) -> void:
 	if is_training:
@@ -39,20 +44,30 @@ func _input(event: InputEvent) -> void:
 	if is_training and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		target_pets(get_global_mouse_position())
 
-func _on_fish_clicked(_fish_instance) -> void:
+func _on_food_clicked(food_instance) -> void:
 	var pets = spawn.get_children().filter(func(child): return child is Entity)
 	
 	var total_pets = pets.size()
 	if total_pets == 0:
 		return
 
-	var hunger_share = FISH_HUNGER_VALUE / total_pets
-	var energy_share = FISH_ENERGY_VALUE / total_pets
+	var hunger_value: float = 0.0
+	var energy_value: float = 0.0
+	
+	if food_instance is Fish:
+		hunger_value = FISH_HUNGER_VALUE
+		energy_value = FISH_ENERGY_VALUE
+	elif food_instance is Potato:
+		hunger_value = POTATO_HUNGER_VALUE
+		energy_value = POTATO_ENERGY_VALUE
+	else:
+		return
+
+	var hunger_share = hunger_value / total_pets
+	var energy_share = energy_value / total_pets
 	
 	for pet in pets:
-		pet.eat_fish(hunger_share, energy_share)
-		
-	print("Pets ate fish! Hunger gained: ", hunger_share, " Energy gained: ", energy_share)
+		pet.eat_food(hunger_share, energy_share)
 
 func _on_training_toggled(_toggled_on: bool) -> void:
 	is_training = _toggled_on
@@ -60,7 +75,7 @@ func _on_training_toggled(_toggled_on: bool) -> void:
 		training_start_time = Time.get_ticks_usec() / 1000000.0
 		last_mouse_pos = get_global_mouse_position()
 		total_mouse_distance = 0.0
-		var control_node = get_node("CanvasLayer/CameraControl") 
+		var control_node = get_node("CanvasLayer/CameraControl")
 		if control_node and control_node.target:
 			control_node.reset_camera_view()
 	else:
@@ -74,13 +89,11 @@ func target_pets(pos: Vector2) -> void:
 
 func stop_training() -> void:
 	var training_time_seconds = Time.get_ticks_usec() / 1000000.0 - training_start_time
-	training_time_seconds = max(1.0, training_time_seconds) 
+	training_time_seconds = max(1.0, training_time_seconds)
 	
 	var _training_speed = total_mouse_distance / training_time_seconds
 	
 	var base_gain = int(total_mouse_distance / XP_DIVISOR)
-	
-	print("Training complete! Distance: ", total_mouse_distance, " Gain: ", base_gain)
 	
 	total_mouse_distance = 0.0
 	
@@ -91,10 +104,12 @@ func stop_training() -> void:
 		if child is Entity:
 			var xp_gained = max(1, base_gain)
 			var final_xp_gain = max(1, int(xp_gained * child.exp_gain_multiplier)) 
-			child.current_exp += final_xp_gain
 			
-			if child.current_exp >= child.exp_to_next_level:
-				child.level_up()
+			child.current_exp += final_xp_gain
+			child.current_wandering_exp += final_xp_gain * WANDERING_XP_BOOST
+			
+			child.level_up()
+			child.wandering_level_up()
 				
 			child.stop_following()
 			

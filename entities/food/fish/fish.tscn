@@ -22,15 +22,17 @@ animations = [{
 radius = 5.997146
 height = 13.993341
 
-[node name="Fish" type="Node2D"]
+[node name="Fish" type="Node2D" unique_id=336183723]
 rotation = -0.7858375
 script = ExtResource("2_a3lrt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=502928900]
 sprite_frames = SubResource("SpriteFrames_xhvsj")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=2119084855]
 rotation = -0.8158006
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=548720086]
 shape = SubResource("CapsuleShape2D_ywhkx")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

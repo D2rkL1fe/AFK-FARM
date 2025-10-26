@@ -1,10 +1,14 @@
 extends Node2D
 class_name Fish
 
-@export var hunger_restore: float = 20.0
-@export var energy_restore: float = 10.0
+signal fish_clicked(fish_instance)
 
-func _on_interacted(pet_instance):
-	if pet_instance is Entity:
-		pet_instance.eat_fish(hunger_restore, energy_restore)
+func _ready():
+	var farm_node = get_tree().get_first_node_in_group("farm_root")
+	if farm_node:
+		fish_clicked.connect(farm_node._on_fish_clicked)
+
+func _on_body_entered(body: Node2D):
+	if body is Entity:
+		fish_clicked.emit(self)
 		queue_free()

@@ -18,3 +18,5 @@ class_name EntityData
 @export var move_speed_multiplier: float = 0.0
 @export var energy_cost_multiplier: float = 0.0
 @export var exp_gain_multiplier: float = 0.0
+
+@export var inventory: Dictionary = {}

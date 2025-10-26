@@ -20,7 +20,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ywhkx"]
 radius = 5.997146
-height = 13.993341
+height = 16.054064
 
 [node name="Potato" type="Node2D"]
 rotation = -0.7858375

@@ -25,25 +25,23 @@ func spawn_pets():
 		var pet_name = pet_data.entity_name
 		if PetLoader.pets.has(pet_name) and PetLoader.pets[pet_name] is PackedScene:
 			var instance = PetLoader.pets[pet_name].instantiate()
-			instance.global_position = Vector2(randf_range(-50, 50), randf_range(-50, 50))
+			# Spawn pets within the visible farm area
+			instance.global_position = Vector2(randf_range(-75, 75), randf_range(-75, 75))
 			spawn.add_child(instance)
 
 func _physics_process(_delta: float) -> void:
-	if is_training:
-		for child in spawn.get_children():
-			if child is Entity:
-				if child.current_state == Entity.State.FOLLOWING_MOUSE:
-					if child.current_energy <= 5:
-						child.stop_following()
-					
+	pass
+
 func _input(event: InputEvent) -> void:
 	if is_training and event is InputEventMouseMotion:
 		var current_mouse_pos = get_global_mouse_position()
 		var distance = last_mouse_pos.distance_to(current_mouse_pos)
 		total_mouse_distance += distance
+		last_mouse_pos = current_mouse_pos
 		
 	if is_training and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		target_pets(get_global_mouse_position())
+		last_mouse_pos = get_global_mouse_position()
 
 func _on_food_clicked(food_instance) -> void:
 	var pets = spawn.get_children().filter(func(child): return child is Entity)
@@ -55,10 +53,10 @@ func _on_food_clicked(food_instance) -> void:
 	var hunger_value: float = 0.0
 	var energy_value: float = 0.0
 	
-	if food_instance is Fish:
+	if food_instance.get_script().get_instance_base_type() == "Fish":
 		hunger_value = FISH_HUNGER_VALUE
 		energy_value = FISH_ENERGY_VALUE
-	elif food_instance is Potato:
+	elif food_instance.get_script().get_instance_base_type() == "Potato":
 		hunger_value = POTATO_HUNGER_VALUE
 		energy_value = POTATO_ENERGY_VALUE
 	else:
@@ -69,6 +67,10 @@ func _on_food_clicked(food_instance) -> void:
 	
 	for pet in pets:
 		pet.eat_food(hunger_share, energy_share)
+		if is_instance_valid(pet.data):
+			# These lines are redundant but kept for clarity on what is being updated
+			pet.data.hunger = pet.data.hunger
+			pet.data.energy = pet.data.energy
 
 func _on_training_toggled(_toggled_on: bool) -> void:
 	is_training = _toggled_on
@@ -87,8 +89,7 @@ func _on_training_toggled(_toggled_on: bool) -> void:
 func target_pets(pos: Vector2) -> void:
 	for child in spawn.get_children():
 		if child is Entity:
-			if child.current_energy > 5:
-				child.start_following_mouse(pos)
+			child.start_following_mouse(pos)
 
 func stop_training() -> void:
 	var training_time_seconds = Time.get_ticks_usec() / 1000000.0 - training_start_time
@@ -106,10 +107,10 @@ func stop_training() -> void:
 	for child in spawn.get_children():
 		if child is Entity:
 			var xp_gained = max(1, base_gain)
-			var final_xp_gain = max(1, int(xp_gained * child.exp_gain_multiplier)) 
+			var final_xp_gain = max(1, int(xp_gained * child.data.exp_gain_multiplier)) 
 			
-			child.current_exp += final_xp_gain
-			child.current_wandering_exp += final_xp_gain * WANDERING_XP_BOOST
+			child.data.current_exp += final_xp_gain
+			child.data.current_wandering_exp += final_xp_gain * WANDERING_XP_BOOST
 			
 			child.level_up()
 			child.wandering_level_up()

@@ -36,4 +36,5 @@ func _on_pet_selected(pet):
 	target = pet
 	info.visible = true
 	
-	farm._on_training_toggled(false)
+	if is_instance_valid(farm):
+		farm._on_training_toggled(false)

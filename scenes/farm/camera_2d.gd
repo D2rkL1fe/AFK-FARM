@@ -36,24 +36,24 @@ func reset_camera_view():
 func refresh_pet_info(pet: Entity) -> void:
 	if is_instance_valid(pet):
 		if is_instance_valid(level_label):
-			level_label.text = "Lvl: " + str(pet.level)
+			level_label.text = "Lvl: " + str(pet.data.level)
 			
 		if is_instance_valid(experience_label):
-			var current_exp_display = int(pet.current_exp / EXP_DISPLAY_SCALE)
-			var exp_to_next_level_display = int(pet.exp_to_next_level / EXP_DISPLAY_SCALE)
+			var current_exp_display = int(pet.data.current_exp / EXP_DISPLAY_SCALE)
+			var exp_to_next_level_display = int(pet.data.exp_to_next_level / EXP_DISPLAY_SCALE)
 			experience_label.text = "EXP: " + str(current_exp_display) + " / " + str(exp_to_next_level_display)
 			
 		if is_instance_valid(hunger_label):
-			hunger_label.text = "HUNGER: " + str(int(pet.current_hunger)) + " / 100"
+			hunger_label.text = "HUNGER: " + str(int(pet.data.hunger)) + " / 100"
 			
 		if is_instance_valid(energy_label):
-			energy_label.text = "ENERGY: " + str(int(pet.current_energy)) + " / " + str(int(pet.get_max_energy()))
+			energy_label.text = "ENERGY: " + str(int(pet.data.energy)) + " / " + str(int(pet.get_max_energy()))
 			
 		if is_instance_valid(wandering_label):
-			var current_wander_exp_display = int(pet.current_wandering_exp / EXP_DISPLAY_SCALE)
-			var wander_exp_to_next_level_display = int(pet.wandering_exp_to_next_level / EXP_DISPLAY_SCALE)
+			var current_wander_exp_display = int(pet.data.current_wandering_exp / EXP_DISPLAY_SCALE)
+			var wander_exp_to_next_level_display = int(pet.data.wandering_exp_to_next_level / EXP_DISPLAY_SCALE)
 			
-			wandering_label.text = "WANDER: Lvl " + str(pet.wandering_level) + " (" + str(current_wander_exp_display) + " / " + str(wander_exp_to_next_level_display) + ")"
+			wandering_label.text = "WANDER: Lvl " + str(pet.data.wandering_level) + " (" + str(current_wander_exp_display) + " / " + str(wander_exp_to_next_level_display) + ")"
 
 func _on_pet_selected(pet: Entity):
 	show_stats_panel(pet)

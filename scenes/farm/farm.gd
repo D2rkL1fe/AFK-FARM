@@ -8,17 +8,18 @@ var last_mouse_pos: Vector2 = Vector2.ZERO
 var total_mouse_distance: float = 0.0
 var training_start_time: float = 0.0
 
-const XP_DIVISOR = 60.0
+const XP_DIVISOR = 20.0
+const FISH_HUNGER_VALUE = 40.0
+const FISH_ENERGY_VALUE = 20.0
 
 func _ready() -> void:
+	add_to_group("farm_root")
 	spawn_pets()
 
 func spawn_pets():
 	for pet in Stats.pets:
 		var instance = PetLoader.pets[pet.entity_name].instantiate()
-		
 		instance.global_position = Vector2(randf_range(-50, 50), randf_range(-50, 50))
-		
 		spawn.add_child(instance)
 
 func _physics_process(_delta: float) -> void:
@@ -37,6 +38,21 @@ func _input(event: InputEvent) -> void:
 		
 	if is_training and event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		target_pets(get_global_mouse_position())
+
+func _on_fish_clicked(_fish_instance) -> void:
+	var pets = spawn.get_children().filter(func(child): return child is Entity)
+	
+	var total_pets = pets.size()
+	if total_pets == 0:
+		return
+
+	var hunger_share = FISH_HUNGER_VALUE / total_pets
+	var energy_share = FISH_ENERGY_VALUE / total_pets
+	
+	for pet in pets:
+		pet.eat_fish(hunger_share, energy_share)
+		
+	print("Pets ate fish! Hunger gained: ", hunger_share, " Energy gained: ", energy_share)
 
 func _on_training_toggled(_toggled_on: bool) -> void:
 	is_training = _toggled_on
@@ -74,7 +90,6 @@ func stop_training() -> void:
 	for child in spawn.get_children():
 		if child is Entity:
 			var xp_gained = max(1, base_gain)
-			# MODIFIED LINE: Ensure minimum gain is 1, even after the multiplier.
 			var final_xp_gain = max(1, int(xp_gained * child.exp_gain_multiplier)) 
 			child.current_exp += final_xp_gain
 			

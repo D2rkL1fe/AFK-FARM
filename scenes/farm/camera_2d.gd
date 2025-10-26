@@ -7,6 +7,7 @@ extends Control
 @export var experience_label: Label
 @export var hunger_label: Label
 @export var energy_label: Label
+@export var wandering_label: Label 
 
 var target : Node2D
 
@@ -48,6 +49,8 @@ func refresh_pet_info(pet: Entity) -> void:
 		hunger_label.text = "HUNGER: " + str(int(pet.current_hunger)) + "/100"
 	if is_instance_valid(energy_label):
 		energy_label.text = "ENERGY: " + str(int(pet.current_energy)) + "/" + str(int(pet.get_max_energy()))
+	if is_instance_valid(wandering_label):
+		wandering_label.text = "WANDER: Lvl " + str(pet.wandering_level) + " (" + str(int(pet.current_wandering_exp)) + " / " + str(pet.wandering_exp_to_next_level) + ")"
 
 
 func _on_pet_selected(pet):

@@ -4,6 +4,11 @@ var pets: Array[EntityData] = []
 
 var last_time_played : int
 
+var carrot_amount : int = 0
+var potato_amount : int = 0
+
+signal food_changed
+
 func _ready() -> void:
 	var now = Time.get_unix_time_from_system()
 	print(now - SaveLoad.SaveFileData.last_time_played)

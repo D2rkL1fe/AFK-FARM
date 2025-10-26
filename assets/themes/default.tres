@@ -1,10 +1,37 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dvdhemk8ssjm4"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dvdhemk8ssjm4"]
 
 [ext_resource type="FontFile" uid="uid://ci8wu5kf38rki" path="res://assets/fonts/Fonts/Kenney Mini.ttf" id="1_x0tin"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x0tin"]
+bg_color = Color(0.47843137, 0.28235295, 0.25490198, 1)
+border_width_bottom = 1
+border_color = Color(0.17624283, 0.08913969, 0.10713831, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa4jb"]
+bg_color = Color(0.47843137, 0.28235295, 0.25490198, 1)
+border_width_bottom = 2
+border_color = Color(0.17624283, 0.08913969, 0.10713831, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_size = 1
 
 [resource]
 default_font = ExtResource("1_x0tin")
 default_font_size = 8
+Button/styles/hover = SubResource("StyleBoxFlat_x0tin")
+Button/styles/normal = SubResource("StyleBoxFlat_oa4jb")
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/shadow_offset_x = 0
+Label/constants/shadow_offset_y = 0
+Label/constants/shadow_outline_size = 2
 MarginContainer/constants/margin_bottom = 8
 MarginContainer/constants/margin_left = 8
 MarginContainer/constants/margin_right = 8

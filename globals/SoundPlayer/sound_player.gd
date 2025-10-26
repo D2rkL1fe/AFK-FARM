@@ -6,6 +6,8 @@ const WHOOSH_OUT = preload("uid://cpgwlss0bsf8v")
 
 const POWER_UP = preload("uid://cp8pdj6vg0uem")
 
+const PICK_UP = preload("uid://dn1wy3q08oou8")
+
 # ahh
 var audio_players
 

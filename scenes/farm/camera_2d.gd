@@ -29,9 +29,10 @@ func _ready() -> void:
 	if is_instance_valid(pets_panel):
 		var hbox = pets_panel.get_node_or_null("HBoxContainer")
 		if is_instance_valid(hbox):
+			pass
 			# Assuming the labels are named CarrotLabel and PotatoLabel in the scene
-			carrot_inventory_label = hbox.get_node_or_null("CarrotContainer/CarrotLabel") # Updated path based on requested structure
-			potato_inventory_label = hbox.get_node_or_null("PotatoContainer/PotatoLabel") # Updated path based on requested structure
+			#carrot_inventory_label = hbox.get_node_or_null("CarrotContainer/CarrotLabel") # Updated path based on requested structure
+			#potato_inventory_label = hbox.get_node_or_null("PotatoContainer/PotatoLabel") # Updated path based on requested structure
 
 	# Hide the inventory panel initially or when a pet is selected
 	if is_instance_valid(pets_panel):

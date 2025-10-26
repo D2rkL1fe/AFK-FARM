@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://d5hkimy7fvd4"]
+
+[ext_resource type="Script" uid="uid://bx2aih888sit4" path="res://ui/food_panel/food_panel.gd" id="1_fhld0"]
+[ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="1_ubbv7"]
+[ext_resource type="Texture2D" uid="uid://duiujjgml86tv" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/carrot.png" id="2_ubbv7"]
+[ext_resource type="Texture2D" uid="uid://cdprgddneq15w" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/potato.png" id="3_utmks"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrfdq"]
+atlas = ExtResource("2_ubbv7")
+region = Rect2(17, 16, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lgm8x"]
+atlas = ExtResource("3_utmks")
+region = Rect2(17, 18, 14, 12)
+
+[node name="FoodPanel" type="PanelContainer" unique_id=2058878885 node_paths=PackedStringArray("carrot_label", "potato_label")]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -23.5
+offset_right = 40.0
+offset_bottom = 23.5
+grow_vertical = 2
+mouse_filter = 1
+theme = ExtResource("1_ubbv7")
+script = ExtResource("1_fhld0")
+carrot_label = NodePath("MarginContainer/HBoxContainer/CarrotContainer/CarrotAmount")
+potato_label = NodePath("MarginContainer/HBoxContainer/PotatoContainer/PotatoAmount")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=282702742]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1529338681]
+layout_mode = 2
+alignment = 1
+
+[node name="CarrotContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=791193297]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CarrotAmount" type="Label" parent="MarginContainer/HBoxContainer/CarrotContainer" unique_id=1264743884]
+layout_mode = 2
+text = "0"
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/CarrotContainer" unique_id=1074216332]
+layout_mode = 2
+texture = SubResource("AtlasTexture_wrfdq")
+stretch_mode = 3
+
+[node name="PotatoContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=148406046]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PotatoAmount" type="Label" parent="MarginContainer/HBoxContainer/PotatoContainer" unique_id=1743775298]
+layout_mode = 2
+text = "0"
+
+[node name="PotatoLabel" type="TextureRect" parent="MarginContainer/HBoxContainer/PotatoContainer" unique_id=282607348]
+layout_mode = 2
+texture = SubResource("AtlasTexture_lgm8x")
+stretch_mode = 3

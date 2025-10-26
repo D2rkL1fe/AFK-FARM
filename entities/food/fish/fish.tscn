@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b83yydp88t3cn"]
+[gd_scene load_steps=6 format=3 uid="uid://b83yydp88t3cn"]
 
 [ext_resource type="Texture2D" uid="uid://blw310c05c2co" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Fish.png" id="1_ywhkx"]
+[ext_resource type="Script" uid="uid://bjuivvl2i55lw" path="res://entities/food/fish/fish.gd" id="2_a3lrt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a3lrt"]
 atlas = ExtResource("1_ywhkx")
@@ -17,5 +18,19 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Fish" type="AnimatedSprite2D" unique_id=918988648]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ywhkx"]
+radius = 5.997146
+height = 13.993341
+
+[node name="Fish" type="Node2D"]
+rotation = -0.7858375
+script = ExtResource("2_a3lrt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xhvsj")
+
+[node name="Area2D" type="Area2D" parent="."]
+rotation = -0.8158006
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_ywhkx")

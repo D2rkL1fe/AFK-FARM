@@ -1,10 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbvqcdva877u4"]
+[gd_scene load_steps=12 format=3 uid="uid://dbvqcdva877u4"]
 
 [ext_resource type="Script" uid="uid://da0i8yt0rvby4" path="res://scenes/farm/farm.gd" id="1_a4t06"]
 [ext_resource type="Script" uid="uid://carfb50hq773s" path="res://scenes/farm/camera_2d.gd" id="2_36fi7"]
 [ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="2_fev0l"]
 [ext_resource type="PackedScene" uid="uid://bxrecyxxf3k41" path="res://ui/NavPanel/nav_panel.tscn" id="2_wgrn4"]
 [ext_resource type="Script" uid="uid://dfiv6ym8l13ln" path="res://scenes/farm/farm_ui.gd" id="3_36fi7"]
+[ext_resource type="PackedScene" uid="uid://b83yydp88t3cn" path="res://entities/food/fish/fish.tscn" id="6_fhtoc"]
+[ext_resource type="Texture2D" uid="uid://blw310c05c2co" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Fish.png" id="7_eed4j"]
+[ext_resource type="Script" uid="uid://bjuivvl2i55lw" path="res://entities/food/fish/fish.gd" id="7_f0ucu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3lrt"]
+atlas = ExtResource("7_eed4j")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k484s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3lrt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_51x8p"]
+radius = 5.997146
+height = 13.993341
 
 [node name="Farm" type="Node2D" node_paths=PackedStringArray("spawn", "training_button")]
 script = ExtResource("1_a4t06")
@@ -15,7 +37,7 @@ training_button = NodePath("CanvasLayer/FarmUI/Training")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="FarmUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info")]
+[node name="FarmUI" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info", "training_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +49,7 @@ theme = ExtResource("2_fev0l")
 script = ExtResource("3_36fi7")
 camera = NodePath("../CameraControl/Camera2D")
 info = NodePath("Info")
+training_button = NodePath("Training")
 
 [node name="PetInfoPanel" type="PanelContainer" parent="CanvasLayer/FarmUI"]
 custom_minimum_size = Vector2(0, 64)
@@ -60,7 +83,6 @@ size_flags_horizontal = 3
 text = "Settings"
 
 [node name="Info" type="PanelContainer" parent="CanvasLayer/FarmUI"]
-visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -95,6 +117,11 @@ layout_mode = 2
 text = "Experience 0"
 horizontal_alignment = 1
 
+[node name="Wandering" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Wandering 0"
+horizontal_alignment = 1
+
 [node name="Hunger" type="Label" parent="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "HUNGER 100/100"
@@ -124,7 +151,7 @@ offset_bottom = 151.0
 toggle_mode = true
 text = "Training"
 
-[node name="CameraControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info", "training_button", "level_label", "experience_label", "hunger_label", "energy_label")]
+[node name="CameraControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info", "training_button", "level_label", "experience_label", "hunger_label", "energy_label", "wandering_label")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -137,8 +164,22 @@ level_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Level")
 experience_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Experience")
 hunger_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Hunger")
 energy_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Energy")
+wandering_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Wandering")
 
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer/CameraControl"]
+
+[node name="Fish" parent="." instance=ExtResource("6_fhtoc")]
+position = Vector2(47, 71)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Fish"]
+sprite_frames = SubResource("SpriteFrames_k484s")
+
+[node name="Area2D2" type="Area2D" parent="Fish"]
+rotation = -0.8158006
+script = ExtResource("7_f0ucu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fish/Area2D2"]
+shape = SubResource("CapsuleShape2D_51x8p")
 
 [connection signal="pressed" from="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer/ExitButton" to="CanvasLayer/FarmUI" method="reset_camera_view"]
 [connection signal="pressed" from="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer/ExitButton" to="CanvasLayer/CameraControl" method="reset_camera_view"]

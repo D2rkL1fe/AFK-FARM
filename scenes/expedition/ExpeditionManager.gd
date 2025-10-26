@@ -10,8 +10,8 @@ var pets: Dictionary = {
 var active_pets: Array = []
 
 func _ready() -> void:
-	for i in range(5):
-		spawn_pet("Cow", Vector2(randf_range(-10, 10), randf_range(-10, 10)))
+	for pet_data in Stats.pets:
+		spawn_pet(pet_data.entity_name, Vector2(randf_range(-10, 10), randf_range(-10, 10)))
 
 func spawn_pet(pet_name: String, spawn_pos: Vector2) -> void:
 	if pets.has(pet_name):

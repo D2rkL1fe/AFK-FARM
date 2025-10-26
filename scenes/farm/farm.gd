@@ -11,8 +11,8 @@ var training_start_time: float = 0.0
 
 const XP_DIVISOR = 10.0
 const WANDERING_XP_BOOST = 5.0
-const FISH_HUNGER_VALUE = 20.0
-const FISH_ENERGY_VALUE = 10.0
+const carrot_HUNGER_VALUE = 20.0
+const carrot_ENERGY_VALUE = 10.0
 const POTATO_HUNGER_VALUE = 15.0
 const POTATO_ENERGY_VALUE = 5.0
 
@@ -53,9 +53,9 @@ func _on_food_clicked(food_instance) -> void:
 	var hunger_value: float = 0.0
 	var energy_value: float = 0.0
 	
-	if food_instance.get_script().get_instance_base_type() == "Fish":
-		hunger_value = FISH_HUNGER_VALUE
-		energy_value = FISH_ENERGY_VALUE
+	if food_instance.get_script().get_instance_base_type() == "carrot":
+		hunger_value = carrot_HUNGER_VALUE
+		energy_value = carrot_ENERGY_VALUE
 	elif food_instance.get_script().get_instance_base_type() == "Potato":
 		hunger_value = POTATO_HUNGER_VALUE
 		energy_value = POTATO_ENERGY_VALUE

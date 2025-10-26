@@ -1,10 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbvqcdva877u4"]
+[gd_scene load_steps=10 format=3 uid="uid://dbvqcdva877u4"]
 
 [ext_resource type="Script" uid="uid://da0i8yt0rvby4" path="res://scenes/farm/farm.gd" id="1_a4t06"]
 [ext_resource type="Script" uid="uid://carfb50hq773s" path="res://scenes/farm/camera_2d.gd" id="2_36fi7"]
 [ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="2_fev0l"]
 [ext_resource type="PackedScene" uid="uid://bxrecyxxf3k41" path="res://ui/NavPanel/nav_panel.tscn" id="2_wgrn4"]
 [ext_resource type="Script" uid="uid://dfiv6ym8l13ln" path="res://scenes/farm/farm_ui.gd" id="3_36fi7"]
+[ext_resource type="Texture2D" uid="uid://duiujjgml86tv" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/carrot.png" id="6_f0ucu"]
+[ext_resource type="Texture2D" uid="uid://cdprgddneq15w" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/potato.png" id="6_fhtoc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eed4j"]
+atlas = ExtResource("6_f0ucu")
+region = Rect2(17, 16, 15, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0ucu"]
+atlas = ExtResource("6_fhtoc")
+region = Rect2(17, 18, 14, 12)
 
 [node name="Farm" type="Node2D" node_paths=PackedStringArray("spawn", "training_button")]
 script = ExtResource("1_a4t06")
@@ -137,20 +147,57 @@ grow_vertical = 2
 toggle_mode = true
 text = "Training"
 
-[node name="CameraControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("level_label", "experience_label", "hunger_label", "energy_label", "wandering_label", "nav_panel_ref")]
+[node name="CameraControl" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("camera", "info", "farm", "training_button")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_36fi7")
-level_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Level")
-experience_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Experience")
-hunger_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Hunger")
-energy_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Energy")
-wandering_label = NodePath("../FarmUI/Info/MarginContainer/VBoxContainer/Wandering")
-nav_panel_ref = NodePath("../FarmUI/NavPanel")
+camera = NodePath("Camera2D")
+info = NodePath("../FarmUI/Info")
+farm = NodePath("../..")
+training_button = NodePath("../FarmUI/Training")
 
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer/CameraControl"]
+
+[node name="PetsPanel" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -47.0
+offset_top = -9.0
+offset_right = -7.0
+offset_bottom = 31.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PetsPanel"]
+layout_mode = 0
+offset_left = -7.0
+offset_top = 38.0
+offset_right = 130.0
+offset_bottom = 88.0
+
+[node name="FishContainer" type="VBoxContainer" parent="PetsPanel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Carrot" type="Label" parent="PetsPanel/HBoxContainer/FishContainer"]
+layout_mode = 2
+text = "Carrot: 0"
+
+[node name="TextureRect" type="TextureRect" parent="PetsPanel/HBoxContainer/FishContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eed4j")
+stretch_mode = 3
+
+[node name="PotatoContainer" type="VBoxContainer" parent="PetsPanel/HBoxContainer"]
+layout_mode = 2
+
+[node name="Potato" type="Label" parent="PetsPanel/HBoxContainer/PotatoContainer"]
+layout_mode = 2
+text = "Potato:0"
+
+[node name="PotatoLabel" type="TextureRect" parent="PetsPanel/HBoxContainer/PotatoContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_f0ucu")
+stretch_mode = 3
 
 [connection signal="pressed" from="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer/ExitButton" to="CanvasLayer/FarmUI" method="reset_camera_view"]
 [connection signal="pressed" from="CanvasLayer/FarmUI/Info/MarginContainer/VBoxContainer/ExitButton" to="CanvasLayer/CameraControl" method="reset_camera_view"]

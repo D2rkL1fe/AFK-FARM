@@ -17,13 +17,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-SaveLoad="*res://globals/Save/SaveLoad.gd"
 Global="*res://globals/Global.gd"
 Stats="*res://globals/Stats.gd"
 SoundPlayer="*res://globals/SoundPlayer/sound_player.tscn"
 MusicPlayer="*res://globals/MusicPlayer/music_player.tscn"
 Transition="*res://globals/Transition/transition.tscn"
 PetLoader="*res://globals/PetLoader.gd"
+SaveLoad="*res://globals/Save/SaveLoad.gd"
 Settings="*res://ui/settings/settings.tscn"
 
 [display]

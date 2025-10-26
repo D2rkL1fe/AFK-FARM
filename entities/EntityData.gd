@@ -19,4 +19,10 @@ class_name EntityData
 @export var energy_cost_multiplier: float = 0.0
 @export var exp_gain_multiplier: float = 0.0
 
-@export var inventory: Dictionary = {}
+@export var inventory: Dictionary = {} # Inside your EntityData.gd (Resource) script:
+
+# --- Wandering/Movement State ---
+@export var wander_radius_base: float = 50.0
+@export var wander_search_radius: float = 50.0
+@export var last_wandered_pos: Vector2 = Vector2.ZERO
+@export var last_wandered_time: float = 0.0

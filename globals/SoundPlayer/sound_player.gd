@@ -11,6 +11,8 @@ const PICK_UP = preload("uid://dn1wy3q08oou8")
 const PRESSED = preload("uid://kd2d335obg6t")
 const HOVER = preload("uid://duw3t5xt1cfti")
 
+const PET_SELECT = preload("uid://jy1swddqq3c4")
+
 # ahh
 var audio_players
 

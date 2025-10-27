@@ -292,7 +292,6 @@ offset_top = -48.0
 [node name="FoodPanel" parent="CanvasLayer" unique_id=2058878885 instance=ExtResource("7_oa2py")]
 
 [node name="FoodTimer" type="Timer" parent="." unique_id=20303293]
-wait_time = 2.5
 autostart = true
 
 [connection signal="timeout" from="FoodTimer" to="." method="_on_food_timer_timeout"]

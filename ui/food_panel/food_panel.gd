@@ -9,5 +9,5 @@ func _ready() -> void:
 	Stats.food_changed.connect(_on_food_changed)
 
 func _on_food_changed():
-	carrot_label.text = str(Stats.carrot_amount)
-	potato_label.text = str(Stats.potato_amount)
+	carrot_label.text = str(Stats.total_carrot_amount)
+	potato_label.text = str(Stats.total_potato_amount)

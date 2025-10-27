@@ -8,6 +8,8 @@ class_name Potato
 
 func collect_item(collector: Entity) -> void:
 	Stats.potato_amount += 1
+	Stats.total_potato_amount += 1
+	
 	Stats.food_changed.emit()
 	
 	SoundPlayer.play_sound(SoundPlayer.PICK_UP)

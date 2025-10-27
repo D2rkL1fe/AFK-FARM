@@ -1,18 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckb1mgaplij4f"]
+[gd_scene load_steps=12 format=3 uid="uid://enf3g0d71ll0"]
 
-[ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="1_jsstg"]
-[ext_resource type="Texture2D" uid="uid://duiujjgml86tv" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/carrot.png" id="2_5ujmm"]
-[ext_resource type="Texture2D" uid="uid://kmkm5w6hnp72" path="res://ui/textures/ui_base.png" id="2_8q2sm"]
-[ext_resource type="Script" uid="uid://tagg25nty2yr" path="res://ui/total_rewards/total_rewards.gd" id="2_pynd1"]
-[ext_resource type="Texture2D" uid="uid://cdprgddneq15w" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/potato.png" id="3_8q2sm"]
-[ext_resource type="PackedScene" uid="uid://dhohihpnrdms0" path="res://components/ButtonComponent/button_component.tscn" id="6_dq62n"]
+[ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="1_kqj8j"]
+[ext_resource type="Script" uid="uid://b1hmr074was61" path="res://ui/afk_rewards/afk_rewards.gd" id="2_q4tk4"]
+[ext_resource type="Texture2D" uid="uid://kmkm5w6hnp72" path="res://ui/textures/ui_base.png" id="3_d2jxa"]
+[ext_resource type="Texture2D" uid="uid://duiujjgml86tv" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/carrot.png" id="4_lt0yo"]
+[ext_resource type="Texture2D" uid="uid://cdprgddneq15w" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/potato.png" id="5_yo32w"]
+[ext_resource type="PackedScene" uid="uid://dhohihpnrdms0" path="res://components/ButtonComponent/button_component.tscn" id="6_r8m2b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pynd1"]
-atlas = ExtResource("2_5ujmm")
+atlas = ExtResource("4_lt0yo")
 region = Rect2(17, 16, 15, 15)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dq62n"]
-atlas = ExtResource("3_8q2sm")
+atlas = ExtResource("5_yo32w")
 region = Rect2(17, 18, 14, 12)
 
 [sub_resource type="Animation" id="Animation_pynd1"]
@@ -51,7 +51,7 @@ _data = {
 &"idle": SubResource("Animation_8q2sm")
 }
 
-[node name="TotalRewards" type="Control" unique_id=1071113200 node_paths=PackedStringArray("carrot_label", "potato_label")]
+[node name="AFKRewards" type="Control" unique_id=1071113200 node_paths=PackedStringArray("carrot_label", "potato_label")]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -59,8 +59,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_jsstg")
-script = ExtResource("2_pynd1")
+theme = ExtResource("1_kqj8j")
+script = ExtResource("2_q4tk4")
 carrot_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CarrotContainer/CarrotAmount")
 potato_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PotatoContainer/PotatoAmount")
 
@@ -92,7 +92,7 @@ scale = Vector2(1.5, 1.5)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-texture = ExtResource("2_8q2sm")
+texture = ExtResource("3_d2jxa")
 region_rect = Rect2(3, 3, 42, 42)
 patch_margin_left = 6
 patch_margin_top = 6
@@ -110,7 +110,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2066609957]
 layout_mode = 2
-text = "Total rewards found!"
+text = "AFk rewards!"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=570259493]
@@ -151,7 +151,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Great!"
 
-[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/Close" unique_id=1555896366 instance=ExtResource("6_dq62n")]
+[node name="ButtonComponent" parent="PanelContainer/MarginContainer/VBoxContainer/Close" unique_id=1555896366 instance=ExtResource("6_r8m2b")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=503135176]
 libraries = {

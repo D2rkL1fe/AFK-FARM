@@ -5,6 +5,7 @@ extends Node2D
 @export var training_button: Button
 
 @export var total_rewards : Control
+@export var afk_rewards : Control
 
 var is_training: bool = false
 var last_mouse_pos: Vector2 = Vector2.ZERO
@@ -19,14 +20,39 @@ const POTATO_HUNGER_VALUE = 15.0
 const POTATO_ENERGY_VALUE = 5.0
 
 func _ready() -> void:
+	# handle data
+	if SaveLoad.SaveFileData.playing_first_time:
+		SaveLoad.SaveFileData.playing_first_time = false
+		SaveLoad._save()
+	elif !Stats.claimed_afk_reward:
+		var total_food = min(SaveLoad.SaveFileData.total_time_afk, 1000)
+		
+		var n_carrots = int(total_food / 2) + randi_range(0, int(total_food / 10) + 15)
+		var n_potatoes = int(total_food / 2) + randi_range(0, int(total_food / 10) + 15)
+		
+		Stats.total_carrot_amount += n_carrots
+		Stats.total_potato_amount += n_potatoes
+		
+		Stats.claimed_afk_reward = true
+		
+		Stats.food_changed.emit()
+		
+		afk_rewards.activate(n_carrots, n_potatoes)
+		
+		SaveLoad.SaveFileData.total_carrot_amount = Stats.total_carrot_amount
+		SaveLoad.SaveFileData.total_potato_amount = Stats.total_potato_amount
+		SaveLoad._save()
+	
 	# handle rewards
 	if Stats.carrot_amount > 0 or Stats.potato_amount > 0:
 		total_rewards.activate()
-	
-	SaveLoad._load()
-	print(SaveLoad.SaveFileData.total_time_afk)
-	print("HELP")
-	print(SaveLoad.SaveFileData.last_time_played)
+		
+		Stats.carrot_amount = 0
+		Stats.potato_amount = 0
+		
+		SaveLoad.SaveFileData.total_carrot_amount = Stats.total_carrot_amount
+		SaveLoad.SaveFileData.total_potato_amount = Stats.total_potato_amount
+		SaveLoad._save()
 	
 	# mazno
 	add_to_group("farm_root")

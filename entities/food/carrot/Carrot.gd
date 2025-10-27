@@ -7,6 +7,8 @@ class_name Carrot
 @export var energy_restore_all: float = 5.0 
 func collect_item(collector: Entity) -> void:
 	Stats.carrot_amount += 1
+	Stats.total_carrot_amount += 1
+	
 	Stats.food_changed.emit()
 	
 	SoundPlayer.play_sound(SoundPlayer.PICK_UP)

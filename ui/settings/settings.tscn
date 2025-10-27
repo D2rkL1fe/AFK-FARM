@@ -1,15 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://8tig1u3sfa6y"]
+[gd_scene load_steps=5 format=3 uid="uid://8tig1u3sfa6y"]
 
 [ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="1_hrs25"]
 [ext_resource type="Script" uid="uid://cgcaxbsxs7e2j" path="res://ui/settings/settings.gd" id="2_hrs25"]
 [ext_resource type="Texture2D" uid="uid://kmkm5w6hnp72" path="res://ui/textures/ui_base.png" id="3_fayoa"]
+[ext_resource type="PackedScene" uid="uid://dhohihpnrdms0" path="res://components/ButtonComponent/button_component.tscn" id="4_gweul"]
 
 [node name="Settings" type="CanvasLayer" unique_id=1094886960]
 process_mode = 3
 layer = 10
-
-[node name="Settings" type="Control" parent="." unique_id=302271433]
 visible = false
+script = ExtResource("2_hrs25")
+
+[node name="Control" type="Control" parent="." unique_id=302271433]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,9 +19,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_hrs25")
-script = ExtResource("2_hrs25")
 
-[node name="ColorRect" type="ColorRect" parent="Settings" unique_id=1642958933]
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1642958933]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +29,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.29411766)
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Settings" unique_id=1415063842]
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=1415063842]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -50,7 +51,7 @@ patch_margin_bottom = 6
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Settings/NinePatchRect" unique_id=1365550992]
+[node name="MarginContainer" type="MarginContainer" parent="Control/NinePatchRect" unique_id=1365550992]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,75 +61,78 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/NinePatchRect/MarginContainer" unique_id=1077768996]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/NinePatchRect/MarginContainer" unique_id=1077768996]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Title" type="Label" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer" unique_id=2073247242]
+[node name="Title" type="Label" parent="Control/NinePatchRect/MarginContainer/VBoxContainer" unique_id=2073247242]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Settings"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer" unique_id=1572640898]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/NinePatchRect/MarginContainer/VBoxContainer" unique_id=1572640898]
 layout_mode = 2
 
-[node name="VBoxType" type="VBoxContainer" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1210774469]
+[node name="VBoxType" type="VBoxContainer" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1210774469]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SFX" type="Label" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxType" unique_id=1023363996]
+[node name="SFX" type="Label" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxType" unique_id=1023363996]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 8
 text = "SFX"
 
-[node name="Music" type="Label" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxType" unique_id=1795189603]
+[node name="Music" type="Label" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxType" unique_id=1795189603]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_font_sizes/font_size = 8
 text = "Music"
 
-[node name="VBoxSlider" type="VBoxContainer" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1326889589]
+[node name="VBoxSlider" type="VBoxContainer" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1326889589]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 alignment = 1
 
-[node name="SliderSFX" type="HSlider" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider" unique_id=227628745]
+[node name="SliderSFX" type="HSlider" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider" unique_id=227628745]
 layout_mode = 2
 size_flags_vertical = 3
 min_value = -60.0
 max_value = 10.0
 
-[node name="SliderMusic" type="HSlider" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider" unique_id=1290364713]
+[node name="SliderMusic" type="HSlider" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider" unique_id=1290364713]
 layout_mode = 2
 size_flags_vertical = 3
 min_value = -60.0
 max_value = 10.0
 value = -15.0
 
-[node name="VBoxCheck" type="VBoxContainer" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=464042541]
+[node name="VBoxCheck" type="VBoxContainer" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer" unique_id=464042541]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CheckSFX" type="CheckBox" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck" unique_id=1269138130]
+[node name="CheckSFX" type="CheckBox" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck" unique_id=1269138130]
 layout_mode = 2
 size_flags_vertical = 3
 button_pressed = true
 
-[node name="CheckMusic" type="CheckBox" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck" unique_id=675762078]
+[node name="CheckMusic" type="CheckBox" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck" unique_id=675762078]
 layout_mode = 2
 size_flags_vertical = 3
 button_pressed = true
 
-[node name="Close" type="Button" parent="Settings/NinePatchRect/MarginContainer/VBoxContainer" unique_id=1379152795]
+[node name="Close" type="Button" parent="Control/NinePatchRect/MarginContainer/VBoxContainer" unique_id=1379152795]
+custom_minimum_size = Vector2(38, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Close"
 
-[connection signal="value_changed" from="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider/SliderSFX" to="Settings" method="_on_slider_sfx_value_changed"]
-[connection signal="value_changed" from="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider/SliderMusic" to="Settings" method="_on_slider_music_value_changed"]
-[connection signal="toggled" from="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck/CheckSFX" to="Settings" method="_on_check_sfx_toggled"]
-[connection signal="toggled" from="Settings/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck/CheckMusic" to="Settings" method="_on_check_music_toggled"]
-[connection signal="pressed" from="Settings/NinePatchRect/MarginContainer/VBoxContainer/Close" to="Settings" method="_on_close_pressed"]
+[node name="ButtonComponent" parent="Control/NinePatchRect/MarginContainer/VBoxContainer/Close" unique_id=1555896366 instance=ExtResource("4_gweul")]
+
+[connection signal="value_changed" from="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider/SliderSFX" to="." method="_on_slider_sfx_value_changed"]
+[connection signal="value_changed" from="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxSlider/SliderMusic" to="." method="_on_slider_music_value_changed"]
+[connection signal="toggled" from="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck/CheckSFX" to="." method="_on_check_sfx_toggled"]
+[connection signal="toggled" from="Control/NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer/VBoxCheck/CheckMusic" to="." method="_on_check_music_toggled"]
+[connection signal="pressed" from="Control/NinePatchRect/MarginContainer/VBoxContainer/Close" to="." method="_on_close_pressed"]

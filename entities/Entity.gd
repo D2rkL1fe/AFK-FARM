@@ -7,6 +7,7 @@ signal interacted(pet_instance: Entity)
 @export var sprite : AnimatedSprite2D
 @export var move_timer : Timer
 @export var collision_area: Area2D
+@export var animator : AnimationPlayer
 
 const PASSIVE_HUNGER_LOSS_PER_SEC: float = 0.05
 const MOVEMENT_ENERGY_COST_PER_SEC: float = 0.0

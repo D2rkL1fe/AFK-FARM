@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfsp1f245y8pr"]
+[gd_scene load_steps=7 format=3 uid="uid://bfsp1f245y8pr"]
 
 [ext_resource type="Script" uid="uid://dadi3fsy2fvu3" path="res://entities/food/potato/potato.gd" id="1_i53k2"]
+[ext_resource type="PackedScene" uid="uid://d0gey6wb1khrh" path="res://components/ShadowComponent/shadow_component.tscn" id="2_6vfe7"]
 [ext_resource type="Texture2D" uid="uid://cdprgddneq15w" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/potato.png" id="2_hapn3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aaoys"]
@@ -25,6 +26,11 @@ height = 16.054064
 [node name="Potato" type="Node2D" unique_id=1413727504]
 rotation = -0.7858375
 script = ExtResource("1_i53k2")
+
+[node name="ShadowComponent" parent="." unique_id=758987474 instance=ExtResource("2_6vfe7")]
+position = Vector2(-2.8296695, 2.8271842)
+rotation = 0.78539824
+scale = Vector2(0.52773887, 0.46640357)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=94378655]
 position = Vector2(-6.3617854, -4.9525423)

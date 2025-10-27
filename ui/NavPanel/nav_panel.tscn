@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxrecyxxf3k41"]
+[gd_scene load_steps=6 format=3 uid="uid://bxrecyxxf3k41"]
 
 [ext_resource type="Script" uid="uid://ck5j0t6lner5u" path="res://ui/NavPanel/nav_panel.gd" id="1_1ftug"]
 [ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="1_ys5ed"]
 [ext_resource type="Texture2D" uid="uid://b7m3xnq2scyar" path="res://assets/icons/farm.png" id="3_u2c8n"]
 [ext_resource type="Texture2D" uid="uid://brkpff7p3gtfw" path="res://assets/icons/expedition.png" id="4_u2c8n"]
+[ext_resource type="PackedScene" uid="uid://dhohihpnrdms0" path="res://components/ButtonComponent/button_component.tscn" id="4_voh7h"]
 
 [node name="NavPanel" type="PanelContainer" unique_id=225582837]
 custom_minimum_size = Vector2(0, 48)
@@ -16,11 +17,18 @@ grow_vertical = 0
 theme = ExtResource("1_ys5ed")
 script = ExtResource("1_1ftug")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1076610948]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1490691577]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1076610948]
 layout_mode = 2
 alignment = 1
 
-[node name="Farm" type="Button" parent="HBoxContainer" unique_id=4024781]
+[node name="Farm" type="Button" parent="MarginContainer/HBoxContainer" unique_id=4024781]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -28,7 +36,9 @@ icon = ExtResource("3_u2c8n")
 icon_alignment = 1
 expand_icon = true
 
-[node name="Expedition" type="Button" parent="HBoxContainer" unique_id=1813886064]
+[node name="ButtonComponent" parent="MarginContainer/HBoxContainer/Farm" unique_id=1555896366 instance=ExtResource("4_voh7h")]
+
+[node name="Expedition" type="Button" parent="MarginContainer/HBoxContainer" unique_id=1813886064]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -36,5 +46,7 @@ icon = ExtResource("4_u2c8n")
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="HBoxContainer/Farm" to="." method="_on_farm_pressed"]
-[connection signal="pressed" from="HBoxContainer/Expedition" to="." method="_on_expedition_pressed"]
+[node name="ButtonComponent" parent="MarginContainer/HBoxContainer/Expedition" unique_id=13855493 instance=ExtResource("4_voh7h")]
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Farm" to="." method="_on_farm_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Expedition" to="." method="_on_expedition_pressed"]

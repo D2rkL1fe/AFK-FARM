@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://corsjmf04ogm8"]
+[gd_scene load_steps=19 format=3 uid="uid://corsjmf04ogm8"]
 
 [ext_resource type="Script" uid="uid://blphy222fteed" path="res://entities/Entity.gd" id="1_nwtje"]
 [ext_resource type="Texture2D" uid="uid://deuhjc6pgn2xy" path="res://assets/packs/Hana Caraka - Livestock & Fish [Sample]/Cow/Cow.png" id="1_sorc0"]
 [ext_resource type="Script" uid="uid://cumsts0vkmitf" path="res://entities/EntityData.gd" id="2_nkkuf"]
+[ext_resource type="PackedScene" uid="uid://d0gey6wb1khrh" path="res://components/ShadowComponent/shadow_component.tscn" id="3_bvarj"]
 [ext_resource type="PackedScene" uid="uid://5nn0r6ydpjy1" path="res://components/SelectComponent/select_component.tscn" id="4_nkkuf"]
 
 [sub_resource type="Resource" id="Resource_nkkuf"]
@@ -103,6 +104,10 @@ data = SubResource("Resource_nkkuf")
 sprite = NodePath("AnimatedSprite2D")
 move_timer = NodePath("MoveTimer")
 collision_area = NodePath("SelectComponent")
+
+[node name="ShadowComponent" parent="." unique_id=758987474 instance=ExtResource("3_bvarj")]
+position = Vector2(0, 4.9999995)
+scale = Vector2(0.6875, 0.49999997)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=978005873]
 sprite_frames = SubResource("SpriteFrames_cytg1")

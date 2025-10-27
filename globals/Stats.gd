@@ -11,9 +11,10 @@ signal food_changed
 
 func _ready() -> void:
 	var now = Time.get_unix_time_from_system()
-	print(now - SaveLoad.SaveFileData.last_time_played)
 	
+	SaveLoad.SaveFileData.total_time_afk = now - SaveLoad.SaveFileData.last_time_played
 	SaveLoad.SaveFileData.last_time_played = now
+	
 	SaveLoad._save()
 	
 	var pet_data = PetLoader.pets["Cow"].instantiate().data.duplicate()

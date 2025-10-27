@@ -8,6 +8,9 @@ const POWER_UP = preload("uid://cp8pdj6vg0uem")
 
 const PICK_UP = preload("uid://dn1wy3q08oou8")
 
+const PRESSED = preload("uid://kd2d335obg6t")
+const HOVER = preload("uid://duw3t5xt1cfti")
+
 # ahh
 var audio_players
 

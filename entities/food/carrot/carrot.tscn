@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b83yydp88t3cn"]
+[gd_scene load_steps=7 format=3 uid="uid://b83yydp88t3cn"]
 
 [ext_resource type="Script" uid="uid://bjuivvl2i55lw" path="res://entities/food/carrot/Carrot.gd" id="2_a3lrt"]
 [ext_resource type="Texture2D" uid="uid://duiujjgml86tv" path="res://assets/packs/Hana Caraka - Farming n Foraging [sample]/crops/carrot.png" id="2_xhvsj"]
+[ext_resource type="PackedScene" uid="uid://d0gey6wb1khrh" path="res://components/ShadowComponent/shadow_component.tscn" id="2_y6urh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yiegm"]
 atlas = ExtResource("2_xhvsj")
@@ -22,20 +23,25 @@ animations = [{
 radius = 5.997146
 height = 16.054064
 
-[node name="Carrot" type="Node2D"]
+[node name="Carrot" type="Node2D" unique_id=1585075328]
 rotation = -0.7858375
 script = ExtResource("2_a3lrt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="ShadowComponent" parent="." unique_id=758987474 instance=ExtResource("2_y6urh")]
+position = Vector2(-2.6285348, 2.073781)
+rotation = 0.7853983
+scale = Vector2(0.6075335, 0.5702189)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2092317918]
 position = Vector2(6.3667564, -6.361164)
 rotation = 0.76898086
 sprite_frames = SubResource("SpriteFrames_xhvsj")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=4075005]
 rotation = -0.8158006
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.99952435, 0.03083691)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1508138724]
+position = Vector2(0.99952435, 0.030836903)
 rotation = -0.8053053
 shape = SubResource("CapsuleShape2D_ywhkx")
 

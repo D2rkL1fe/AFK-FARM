@@ -4,6 +4,8 @@ extends Node2D
 @export var spawn : Node2D
 @export var training_button: Button
 
+@export var total_rewards : Control
+
 var is_training: bool = false
 var last_mouse_pos: Vector2 = Vector2.ZERO
 var total_mouse_distance: float = 0.0
@@ -17,6 +19,16 @@ const POTATO_HUNGER_VALUE = 15.0
 const POTATO_ENERGY_VALUE = 5.0
 
 func _ready() -> void:
+	# handle rewards
+	if Stats.carrot_amount > 0 or Stats.potato_amount > 0:
+		total_rewards.activate()
+	
+	SaveLoad._load()
+	print(SaveLoad.SaveFileData.total_time_afk)
+	print("HELP")
+	print(SaveLoad.SaveFileData.last_time_played)
+	
+	# mazno
 	add_to_group("farm_root")
 	spawn_pets()
 
@@ -122,3 +134,7 @@ func stop_training() -> void:
 
 	if focused_pet and control_node:
 		control_node.refresh_pet_info(focused_pet)
+
+
+func _on_settings_pressed() -> void:
+	Settings.toggle()

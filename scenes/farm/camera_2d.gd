@@ -22,9 +22,7 @@ var target : Node2D
 func _ready() -> void:
 	Global.pet_selected.connect(_on_pet_selected)
 	if is_instance_valid(Stats):
-		Stats.food_changed.connect(_update_inventory_display)
 		Stats.food_changed.connect(_on_food_changed)
-		_update_inventory_display()
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("cancel"):
@@ -63,12 +61,6 @@ func refresh_pet_info(pet: Entity) -> void:
 		energy_label.text = "ENERGY: " + str(int(pet.data.energy)) + "/" + str(int(pet.get_max_energy()))
 	if is_instance_valid(wandering_label):
 		wandering_label.text = "WANDER: Lvl " + str(pet.data.wandering_level) + " (" + str(int(pet.data.current_wandering_exp)) + " / " + str(pet.data.wandering_exp_to_next_level) + ")"
-
-func _update_inventory_display():
-	if is_instance_valid(carrot_label):
-		carrot_label.text = "Carrot: " + str(Stats.carrot_amount)
-	if is_instance_valid(potato_label):
-		potato_label.text = "Potato: " + str(Stats.potato_amount)
 
 func _on_food_changed():
 	if !is_instance_valid(target) or !(target is Entity):

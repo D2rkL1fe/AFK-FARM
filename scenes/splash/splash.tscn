@@ -1,10 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://civxtes6ksmkq"]
+[gd_scene load_steps=7 format=3 uid="uid://civxtes6ksmkq"]
 
 [ext_resource type="Theme" uid="uid://dvdhemk8ssjm4" path="res://assets/themes/default.tres" id="1_i52gs"]
 [ext_resource type="Script" uid="uid://c1jkhcnouyj1r" path="res://scenes/splash/splash.gd" id="2_cwtag"]
 
+[sub_resource type="Environment" id="Environment_cwtag"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.0
+glow_bloom = 0.5
+
 [sub_resource type="Animation" id="Animation_y4437"]
 resource_name = "splash"
+length = 3.0
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -12,20 +19,120 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"transition"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 2.01, 2.3333335, 2.8),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(14, 180), Vector2(14, 130), Vector2(14, 140), Vector2(14, 140), Vector2(14, 130), Vector2(14, 180)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Title:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.50000006, 0.8, 2.01, 2.3333335, 2.8),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 0.5, 0.5, 0.5),
+"update": 0,
+"values": [Vector2(0.9, 0.9), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(0.9, 0.9)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Title:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 2.01, 2.8),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Title:pivot_offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(80, 20)]
+}
+
+[sub_resource type="Animation" id="Animation_cwtag"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(14, 140)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Title:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Title:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Title:pivot_offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(80, 20)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wwhxh"]
 _data = {
+&"RESET": SubResource("Animation_cwtag"),
 &"splash": SubResource("Animation_y4437")
 }
 
-[node name="Splash" type="Control"]
+[node name="Splash" type="Control" unique_id=1250776507]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -35,16 +142,19 @@ grow_vertical = 2
 theme = ExtResource("1_i52gs")
 script = ExtResource("2_cwtag")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1141220193]
+environment = SubResource("Environment_cwtag")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=54246967]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.040541537, 4.8251077e-05, 0.11390629, 1)
+color = Color(0, 0.011764706, 0.039215688, 1)
 
-[node name="Title" type="Label" parent="."]
+[node name="Title" type="Label" parent="." unique_id=328120865]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -53,7 +163,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -76.0
 offset_top = -20.0
-offset_right = 76.0
+offset_right = 84.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -62,8 +172,8 @@ text = "PET FARM"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1812457761]
 libraries = {
 &"": SubResource("AnimationLibrary_wwhxh")
 }
-autoplay = "splash"
+autoplay = &"splash"

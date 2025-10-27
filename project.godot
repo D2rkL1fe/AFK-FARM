@@ -34,6 +34,16 @@ window/size/mode=3
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "yellow",
+"res://components/": "green",
+"res://entities/": "red",
+"res://scenes/": "blue",
+"res://ui/": "purple"
+}
+
 [input]
 
 cancel={

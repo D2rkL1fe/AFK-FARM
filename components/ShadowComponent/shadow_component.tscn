@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0gey6wb1khrh"]
+
+[ext_resource type="Texture2D" uid="uid://mn6gdmsm1eym" path="res://components/ShadowComponent/shadow.png" id="1_jv5yk"]
+
+[node name="ShadowComponent" type="Sprite2D" unique_id=758987474]
+modulate = Color(1, 1, 1, 0.39215687)
+texture = ExtResource("1_jv5yk")
